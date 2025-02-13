@@ -9,45 +9,17 @@ function App() {
   const email = "sharonshiju261@gmail.com"; // Your email address
   const subject = "Inquiry about your portfolio"; // Optional subject
   const body = "Hi Sharon, I saw your portfolio and wanted to reach out."; // Optional message
+  
+
+
+  // contact using email
+  // contact using email
 
   const handleEmailClick = () => {
     window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
   };
 
-// chainge shadow when scrolling
-// chainge shadow when scrolling
-// chainge shadow when scrolling
 
- const [shadowX, setShadowX] = useState(0);
-  const [shadowY, setShadowY] = useState(0);
-  const [shadowColor, setShadowColor] = useState("rgba(255, 0, 150, 0.6)"); // Start color
-
-  // Function to update shadow dynamically
-  const handleScroll = (e) => {
-    const scrollTop = e.target.scrollTop; // Get scroll amount
-    const maxScroll = e.target.scrollHeight - e.target.clientHeight;
-
-    // Normalize scroll value between 0 and 1
-    const scrollFactor = scrollTop / maxScroll;
-
-    // Create a wavy square-like motion using a mix of sin & cos
-    const xOffset = Math.sin(scrollFactor * 10) * 50; // More exaggerated movement
-    const yOffset = Math.cos(scrollFactor * 10) * 50;
-
-    // Generate a dynamic color shift
-    const red = Math.floor(255 * scrollFactor);
-    const blue = Math.floor(255 - 255 * scrollFactor);
-    const green = Math.floor(100 + 100 * Math.sin(scrollFactor * 5)); // Adds dynamic color waves
-
-    setShadowX(xOffset);
-    setShadowY(yOffset);
-    setShadowColor(`rgba(${red}, ${green}, ${blue}, 0.7)`);
-  };
-
-
-// contact using email
-// contact using email
-// contact using email
 
   const [formData, setFormData] = useState({
     name: "",
@@ -113,6 +85,31 @@ function App() {
   };
 
 
+  // move when courser
+  // move when courser
+  // move when courser
+  // move when courser
+
+
+  const [isClicked, setIsClicked] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e) => {
+    const { clientX, clientY } = e;
+    const rect = e.target.getBoundingClientRect(); // Get element position
+
+    // Calculate movement (10px max in all directions)
+    const moveX = ((clientX - (rect.left + rect.width / 2)) / rect.width) *  20;
+    const moveY = ((clientY - (rect.top + rect.height / 2)) / rect.height) * 20;
+
+    setPosition({ x: moveX, y: moveY });
+  };
+
+  const handleMouseLeave = () => {
+    setPosition({ x: 0, y: 0 }); // Reset when the mouse leaves
+  };
+
+
 
   return (
     <><div className="noise-overlay">
@@ -131,31 +128,37 @@ function App() {
             <a href="#home">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgb(255, 255, 255)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: "20px", height: "20px" }} ><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
             </a>
+            <p className="hidden">home</p>
           </div>
           <div className="nav-icons">
             <a href="#projects">
               <svg  xmlns="http://www.w3.org/2000/svg"  width="20" height="20"  viewBox="0 0 24 24"  fill="none"  stroke="rgb(255, 255, 255)"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round"  style={{ width: "20px", height: "20px" }} ><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
             </a>
+            <p className="hidden">projects</p>
           </div>
           <div className="nav-icons">
             <a href="#footer">
               <svg  xmlns="http://www.w3.org/2000/svg"  width="20" height="20"  viewBox="0 0 24 24"  fill="none"  stroke="rgb(255, 255, 255)"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round"  style={{ width: "20px", height: "20px" }} ><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
             </a>
+            <p className="hidden">tools</p>
           </div>
           <div className="nav-icons">
-          <a href="/sharon_shiju_cv.pdf"  download="sharon_shiju_cv.pdf"  target="_blank"  rel="noopener noreferrer" >
-            <svg  xmlns="http://www.w3.org/2000/svg"  width="24" height="24"  viewBox="0 0 24 24"  fill="none"  stroke="rgb(255, 255, 255)"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round"  style={{ width: "24px", height: "24px" }}><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
-         </a>
+            <a href="/sharon_shiju_cv.pdf"  download="sharon_shiju_cv.pdf"  target="_blank"  rel="noopener noreferrer" >
+              <svg  xmlns="http://www.w3.org/2000/svg"  width="24" height="24"  viewBox="0 0 24 24"  fill="none"  stroke="rgb(255, 255, 255)"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round"  style={{ width: "20px", height: "20px" }}><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+            </a>
+            <p className="hidden">cv</p>
          </div>
           <div className="nav-icons">
             <a href="#thought">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"  viewBox="0 0 24 24"  fill="none"  stroke="rgb(255, 255, 255)"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round"  style={{ width: "24px", height: "24px" }}><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"  viewBox="0 0 24 24"  fill="none"  stroke="rgb(255, 255, 255)"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round"  style={{ width: "20px", height: "20px" }}><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
             </a>
+            <p className="hidden">thoughts</p>
           </div>
           <div className="nav-icons">
             <a href="#contact">
              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgb(255, 255, 255)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: "24px", height: "24px" }}><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline><p></p> </svg>
             </a>
+            <p className="hidden">contact</p>
           </div>
         </div>
       </nav>
@@ -168,17 +171,13 @@ function App() {
       <div className="main-container">
         <div className="fixed">
           <motion.div initial={{ opacity: 0, x: 150 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, ease: "easeOut" }} viewport={{ once: false, amount: 0.3 }} >
-          <div className="profile-div">
-            <div className="profile-section">
-            {/* <motion.div className="profile" animate={{   boxShadow: `${shadowX}px ${shadowY}px 30px rgba(0, 0, 0, 0.5)`, }} transition={{ type: "spring", stiffness: 80, damping: 10 }} > */}
-              <img src={pro} alt="" />
-            {/* </motion.div> */}
-              {/* <img src="https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg" alt="" /> */}
+          <div className="profile-div" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} style={{   transform: `translate(${position.x}px, ${position.y}px)`,   transition: "transform 0.1s ease-out", }}>
+
+            <div className="profile-section" >
+                <img src={pro} alt="" />
             </div>
             <div className="profile-section" style={{height:"30%"}}>
-            {/* <motion.h1 initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ type: "spring", stiffness: 100 }}> */}
               <p className='profile-name'>Sharon Shiju</p>
-            {/* </motion.h1> */}
 
               <p style={{width:"100%", textAlign:"center"}}>mern stack developer</p><br/>
               <p>india,kerala</p>
@@ -186,38 +185,43 @@ function App() {
                   <div className="profile-icons">
                     <a href="https://github.com/sharonshiju5">
                     <img src="https://cdn-icons-png.flaticon.com/128/733/733609.png" alt="" />
-                      {/* <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgb(255, 255, 255)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: "100%", height: "100%" }}><circle cx="12" cy="12" r="10"></circle><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"></path></svg> */}
                       </a>
                   </div>
                   <div className="profile-icons">
                     <a href="www.linkedin.com/in/sharon-shiju-pk">
                     <img src="https://cdn-icons-png.flaticon.com/128/2111/2111532.png" alt="" />
-                      {/* <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgb(255, 255, 255)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: "100%", height: "100%" }}><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg> */}
                     </a>
                   </div>
-                  <div className="profile-icons">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgb(255, 255, 255)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: "100%", height: "100%" }}><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                  </div>
                   <div className="profile-icons" onClick={handleEmailClick}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgb(255, 255, 255)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: "100%", height: "100%" }}><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgb(255, 255, 255)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: "       ", height: "      " }}><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                  </div>
+                  <div className="profile-icons">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgb(255, 255, 255)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: "       ", height: "      " }}><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                   </div>
               </div>
             </div>
             <div className="profile-section" style={{height:"10%"}}>
                 <a href="#contact" style={{width:"100%"}}>
-                <button>lets talk</button>
+                  <motion.button className="click-me-btn" whileHover={{ scale: 1.1,  }} whileTap={{ scale: 0.9 }} animate={isClicked ? { scale: [1, 1.2, 1] } : {}} transition={{ duration: 0.2 }} onClick={() => {   setIsClicked(true);   setTimeout(() => setIsClicked(false), 300); }} >
+                    lets talk
+                  </motion.button>
                 </a>
                 <a href="/sharon_shiju_cv.pdf"  download="sharon_shiju_cv.pdf"  target="_blank"  rel="noopener noreferrer" >
-              <button>Download cv</button>
-            </a>
+                  <motion.button className="click-me-btn" whileHover={{ scale: 1.1,  }} whileTap={{ scale: 0.9 }} animate={isClicked ? { scale: [1, 1.2, 1] } : {}} transition={{ duration: 0.2 }} onClick={() => {   setIsClicked(true);   setTimeout(() => setIsClicked(false), 300); }} >
+                    Download cv
+                  </motion.button>
+              </a>
             </div>
           </div>
             </motion.div>
         </div>
-        <div className="scroll delay-600" onScroll={handleScroll}>
+        <div className="scroll delay-600" 
+        // onScroll={handleScroll}
+        >
           <div className="scrool-info">
             <motion.div initial={{ opacity: 0, y: 50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut" }} viewport={{ once: false, amount: 0.3 }} >
             <div className="title-container home">
+              
               <h1 className='title'  id='home'>MERN STACK</h1>
               <h1 className='title overlay'>DEVELOPER</h1>
               <p>Passionate about creating intuitive and engaging user experiences. Specialize in transforming ideas into beautifully crafted products.</p>
@@ -452,14 +456,14 @@ function App() {
                 message
                 <textarea name="message" placeholder='message' id=""style={{height:"80px"}} value={formData.message} onChange={handleChange} required />
               </label>
-              <button type="submit">confirm</button>
+              <button type="submit">send message</button>
               </form>
               </motion.div>
             </div>
             <ToastContainer/>
-            <div className="empty-div">
+            {/* <div className="empty-div">
 
-            </div>
+            </div> */}
 
 
 
