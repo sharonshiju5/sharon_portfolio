@@ -581,7 +581,15 @@ a{
 /* mediaquery */
 /* mediaquery */
 /* mediaquery */
-
+@media (max-width: 25610px) {
+  .tool-div{
+    /* height: 40vh; */
+    background-color: #c5ff41;
+  }
+  .tool{
+    background-color: #f46c38;
+  }
+}
 
 @media (max-width: 1442px) {
   .main-container{
@@ -674,6 +682,16 @@ a{
   .overlay{
     margin-left: 20px;
     font-size: 3.5rem;
+  }
+  .scroll{
+    background-color: #c5ff41;
+    height: 10px;
+    
+  }
+  
+  .scrool-info{
+    /* height: 10vh; */
+    background-color: #914bf1;
   }
 }
 @media (max-width: 920px) {

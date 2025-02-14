@@ -382,13 +382,13 @@ function App() {
             </div>
             </motion.div>
             <motion.div initial={{ opacity: 0, x: 100 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, ease: "easeOut" }} viewport={{ once: false, amount: 0.3 }} >
-            <div className="tool-div">
             <motion.div initial={{ opacity: 0, filter: "blur(10px)" }} whileInView={{ opacity: 1, filter: "blur(0px)" }} transition={{ duration: 0.6, ease: "easeOut" }} viewport={{ once: false, amount: 0.3 }} >
               <div className="title-container tool-container" style={{marginTop:"420px"}}>
                 <h1 className='title' id='footer'>Top-Tier</h1>
                 <h1 className='title overlay' style={{left:"10%"}}>Tools</h1>
               </div>
               </motion.div>
+            <div className="tool-div">
               <div className="tool">
                 <div className="tool-icon">
                   <img src="https://cdn-icons-png.flaticon.com/128/174/174854.png" alt="" />
