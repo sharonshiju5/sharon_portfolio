@@ -584,10 +584,10 @@ a{
 @media (max-width: 25610px) {
   .tool-div{
     /* height: 40vh; */
-    background-color: #c5ff41;
+    /* background-color: #c5ff41; */
   }
   .tool{
-    background-color: #f46c38;
+    /* background-color: #f46c38; */
   }
 }
 
