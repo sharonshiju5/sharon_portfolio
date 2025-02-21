@@ -121,6 +121,38 @@ function App() {
     }, 1500); // Show loading for 1.5 seconds
   }, []);
 
+
+
+
+  const texts = ["Web Developer", "React Expert", "UI Designer"];
+  const [text, setText] = useState("");
+  const [index, setIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const typingSpeed = 150; // Adjust for slower typing
+  const deletingSpeed = 80;
+  const pauseTime = 2000; // Pause before deleting
+
+  useEffect(() => {
+    const currentText = texts[index];
+
+    if (isDeleting) {
+      if (charIndex > 0) {
+        setTimeout(() => setCharIndex((prev) => prev - 1), deletingSpeed);
+      } else {
+        setIsDeleting(false);
+        setIndex((prev) => (prev + 1) % texts.length);
+      }
+    } else {
+      if (charIndex < currentText.length) {
+        setTimeout(() => setCharIndex((prev) => prev + 1), typingSpeed);
+      } else {
+        setTimeout(() => setIsDeleting(true), pauseTime);
+      }
+    }
+  }, [charIndex, isDeleting, index, texts]);
+
   return (
     <div>
  <AnimatePresence mode="wait">
@@ -240,8 +272,19 @@ function App() {
             </div>
             <div className="profile-section" style={{height:"30%"}}>
               <p className='profile-name'>Sharon Shiju</p>
-
-              <p style={{width:"100%", textAlign:"center"}}>mern stack developer</p><br/>
+              I'm a{" "}
+        <motion.span
+          key={text}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.5 }}
+          className="typing-text"
+        >
+          {" "+texts[index].substring(0, charIndex)}
+        </motion.span>
+        <span className="cursor">|</span>
+              <p style={{width:"100%", textAlign:"center"}}></p><br/>
               <p>india,kerala</p>
               <div className="profile-icon-div">
                   <div className="profile-icons">
@@ -289,7 +332,7 @@ function App() {
               <p>Passionate about creating intuitive and engaging user experiences. Specialize in transforming ideas into beautifully crafted products.</p>
             </div>
             </motion.div>
-            <motion.div initial={{ opacity: 0, y: -50 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut" }} viewport={{ once: false, amount: 0.3 }} >
+            <motion.div initial={{ opacity: 0, y: -80 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: "easeOut" }} viewport={{ once: false, amount: 0.3 }} >
             <div className="main-tools">
               <div className="div">
                 <div className="stack-div">

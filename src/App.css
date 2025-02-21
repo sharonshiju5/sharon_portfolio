@@ -219,6 +219,23 @@ main{
   color: white;
   font-family: "Outfit", "Outfit Placeholder", sans-serif;;
 }
+.typing-text {
+  color: #914bf1;
+  font-weight: bold;
+}
+
+.cursor {
+  font-size: 32px;
+  font-weight: bold;
+  color: #914bf1;
+  animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
 .profile-icon-div{
   height: 50px;
   width: 70%;
@@ -684,14 +701,14 @@ a{
     font-size: 3.5rem;
   }
   .scroll{
-    background-color: #c5ff41;
-    height: 10px;
+    /* background-color: #c5ff41; */
+    height: 740vh;
     
   }
   
   .scrool-info{
     /* height: 10vh; */
-    background-color: #914bf1;
+    /* background-color: #914bf1; */
   }
 }
 @media (max-width: 920px) {
@@ -707,13 +724,24 @@ a{
   }
   .scroll{
     overflow-y: hidden;
-    height: 900vh;
+    /* height: 900vh; */
     width: 100%;
   }
   footer{
   display: none; 
   }.empty-div{
     display: none;
+  }
+}
+
+@media (max-width: 515px) {
+  .scroll{
+    height: 830vh;
+  }
+}
+@media (max-width: 432px) {
+  .scroll{
+    height: 845vh;
   }
 }
 @media (max-width: 426px) {
@@ -727,7 +755,7 @@ a{
   }
   .scroll{
     overflow-y: hidden;
-    height: 830vh;
+    height: 690vh;
     width: 100%;
 
   }
