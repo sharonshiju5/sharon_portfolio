@@ -849,3 +849,12 @@ a{
     /* margin-top: 10px; */
   }
 }
+@media (max-width: 372px) {
+  .home h1{
+    font-size: 4px;
+    /* background-color: #c5ff41; */
+  }
+  .home .overlay{
+    margin-top: 50px;
+  }
+}
