@@ -6,9 +6,9 @@ import './App.css'
 import pro from "./assets/IMG_5035[1]-compressed.jpg"
 function App() {
   const textRef = useRef(null);
-  const email = "sharonshiju261@gmail.com"; // Your email address
-  const subject = "Inquiry about your portfolio"; // Optional subject
-  const body = "Hi Sharon, I saw your portfolio and wanted to reach out."; // Optional message
+  const email = "sharonshiju261@gmail.com";
+  const subject = "Inquiry about your portfolio";
+  const body = "Hi Sharon, I saw your portfolio and wanted to reach out."; 
   
 
 
@@ -124,7 +124,7 @@ function App() {
 
 
 
-  const texts = ["Web Developer", "React Expert", "UI Designer"];
+  const texts = [" Web Developer", " React Expert", " BACKEND Developer"];
   const [text, setText] = useState("");
   const [index, setIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
@@ -425,7 +425,7 @@ function App() {
             </div>
             </motion.div>
             <motion.div initial={{ opacity: 0, x: 100 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, ease: "easeOut" }} viewport={{ once: false, amount: 0.3 }} >
-            <motion.div initial={{ opacity: 0, filter: "blur(10px)" }} whileInView={{ opacity: 1, filter: "blur(0px)" }} transition={{ duration: 0.6, ease: "easeOut" }} viewport={{ once: false, amount: 0.3 }} >
+              <motion.div initial={{ opacity: 0, filter: "blur(10px)" }} whileInView={{ opacity: 1, filter: "blur(0px)" }} transition={{ duration: 0.6, ease: "easeOut" }} viewport={{ once: false, amount: 0.3 }} >
               <div className="title-container tool-container" style={{marginTop:"420px"}}>
                 <h1 className='title' id='footer'>Top-Tier</h1>
                 <h1 className='title overlay' style={{left:"10%"}}>Tools</h1>
