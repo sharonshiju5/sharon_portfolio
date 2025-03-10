@@ -3,7 +3,7 @@ import emailjs from "@emailjs/browser";
 import { motion, AnimatePresence } from "framer-motion";
 import { ToastContainer, toast } from 'react-toastify';
 import './App.css'
-import pro from "./assets/IMG_5035[1]-compressed.jpg"
+import pro from "./assets/profil.jpg"
 function App() {
   const textRef = useRef(null);
   const email = "sharonshiju261@gmail.com";
