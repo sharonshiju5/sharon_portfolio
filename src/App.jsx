@@ -328,7 +328,7 @@ function App() {
             <div className="title-container home">
               
               <h1 className='title'  id='home'>MERN STACK</h1>
-              <h1 className='title overlay'>DEVELOPER</h1>
+              <h1 className='title overlay developer'>DEVELOPER</h1>
               <p>Passionate about creating intuitive and engaging user experiences. Specialize in transforming ideas into beautifully crafted products.</p>
             </div>
             </motion.div>
@@ -406,7 +406,7 @@ function App() {
               <motion.div initial={{ opacity: 0, x: -100 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, ease: "easeOut" }} viewport={{ once: false, amount: 0.3 }} >
               <div className="title-container thought-container" style={{marginTop:"420px"}}>
                 <h1 className='title' id='thought'>DESIGN</h1>
-                <h1 className='title overlay' style={{left:"18.6%"}}>THOUGHTS</h1>
+                <h1 className='title overlay' style={{left:"15.6%"}}>THOUGHTS</h1>
               </div>
               </motion.div>
             

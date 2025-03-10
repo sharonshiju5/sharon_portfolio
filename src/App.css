@@ -834,6 +834,7 @@ a{
   }
 }
 @media (max-width: 384px) {
+  /* *{overflow-x: hidden;} */
   #home{
     /* background-color: #c5ff41; */
     font-size: 2.9rem;
@@ -853,6 +854,14 @@ a{
   .home h1{
     font-size: 4px;
     /* background-color: #c5ff41; */
+  }
+  .developer{
+    /* background-color: #914bf1; */
+    width: 100%;
+    margin-left: 7px;
+  }
+  .overlay{
+    /* font-size: rem; */
   }
   .home .overlay{
     margin-top: 50px;
