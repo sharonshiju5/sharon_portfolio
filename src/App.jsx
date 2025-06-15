@@ -38,7 +38,7 @@ function App() {
 
     emailjs
       .send(
-        "service_98qg77v",  // Replace with your EmailJS Service ID
+        "service_qxyrp28",  // Replace with your EmailJS Service ID
         "template_g03w4n6", // Replace with your EmailJS Template ID
         {
           from_name: formData.name,
