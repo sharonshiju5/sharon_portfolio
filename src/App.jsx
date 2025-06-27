@@ -5,12 +5,35 @@ import { ToastContainer, toast } from 'react-toastify';
 import './App.css'
 import project from "./assets/project.png"
 import pro from "./assets/profil.jpg"
+import chatapp from "./assets/chatapplication.png"
+
 function App() {
   const textRef = useRef(null);
   const email = "sharonshiju261@gmail.com";
   const subject = "Inquiry about your portfolio";
   const body = "Hi Sharon, I saw your portfolio and wanted to reach out."; 
-  
+
+  // hovereffe4tc
+  // hovereffe4tc
+  // hovereffe4tc
+const [hoveredProject, setHoveredProject] = useState(null);
+
+const projects = [
+  {
+    id: 'ecommerce',
+    name: 'E-comerce',
+    link: 'https://github.com/sharonshiju5/e-comerce_project',
+    originalImg: "https://img.freepik.com/free-photo/project-management-planning-development-message-box-notification-graphic_53876-123902.jpg?t=st=1739350068~exp=1739353668~hmac=4cb46d19698569abd104a66ab7512ef66cf6c4977c71fa04b2ce4d35d5737ba3&w=996",
+    hoverImg: `${project}`
+  },
+  {
+    id: 'chat',
+    name: 'Chat application',
+    link: 'https://github.com/sharonshiju5/chatapplication',
+    originalImg: "https://img.freepik.com/free-photo/project-management-planning-development-message-box-notification-graphic_53876-123902.jpg?t=st=1739350068~exp=1739353668~hmac=4cb46d19698569abd104a66ab7512ef66cf6c4977c71fa04b2ce4d35d5737ba3&w=996",
+    hoverImg:`${chatapp}`
+  }
+];
 
 
   // contact using email
@@ -366,27 +389,66 @@ function App() {
             </motion.div>
             <motion.div initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, ease: "easeOut" }} viewport={{ once: false, amount: 0.3 }} >
             <div className="projects-div" >
-              <div className="project-section" >
-                <a href="https://github.com/sharonshiju5/e-comerce_project">
-                <div className="projects">
-                  <div className="project-img">
-                    <img src="https://img.freepik.com/free-photo/project-management-planning-development-message-box-notification-graphic_53876-123902.jpg?t=st=1739350068~exp=1739353668~hmac=4cb46d19698569abd104a66ab7512ef66cf6c4977c71fa04b2ce4d35d5737ba3&w=996" alt="" />
+
+
+              <div className="project-section">
+                <a href={projects[0].link}>
+                  <div 
+                    className="projects"
+                    onMouseEnter={() => setHoveredProject('ecommerce')}
+                    onMouseLeave={() => setHoveredProject(null)}
+                    style={{ position: 'relative', overflow: 'hidden' }}
+                  >
+                    <div className="project-img" style={{ position: 'relative', overflow: 'hidden' }}>
+                      <img src={projects[0].originalImg} alt="" />
+                      <motion.div
+                        initial={{ x: '100%' }}
+                        animate={{ x: hoveredProject === 'ecommerce' ? '0%' : '100%' }}
+                        transition={{ duration: 0.4, ease: "easeInOut" }}
+                        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                      >
+                        <img 
+                          src={projects[0].hoverImg} 
+                          alt=""
+                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        />
+                      </motion.div>
+                    </div>
+                    <div className="project-name">
+                      <h3>E-comerce</h3>
+                    </div>
                   </div>
-                  <div className="project-name">
-                    <h3>E-comerce</h3>
-                  </div>
-                </div>
                 </a>
-                <a href="https://github.com/sharonshiju5/chatapplication">  
-                  <div className="projects">
-                    <div className="project-img">
-                      <img src="https://img.freepik.com/free-photo/project-management-planning-development-message-box-notification-graphic_53876-123902.jpg?t=st=1739350068~exp=1739353668~hmac=4cb46d19698569abd104a66ab7512ef66cf6c4977c71fa04b2ce4d35d5737ba3&w=996" alt="" />
+                <a href={projects[1].link}>  
+                  <div 
+                    className="projects"
+                    onMouseEnter={() => setHoveredProject('chat')}
+                    onMouseLeave={() => setHoveredProject(null)}
+                    style={{ position: 'relative', overflow: 'hidden' }}
+                  >
+                    <div className="project-img" style={{ position: 'relative', overflow: 'hidden' }}>
+                      <img src={projects[1].originalImg} alt="" />
+                      <motion.div
+                        initial={{ x: '100%' }}
+                        animate={{ x: hoveredProject === 'chat' ? '0%' : '100%' }}
+                        transition={{ duration: 0.4, ease: "easeInOut" }}
+                        style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                      >
+                        <img 
+                          src={projects[1].hoverImg} 
+                          alt=""
+                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        />
+                      </motion.div>
                     </div>
                     <div className="project-name">
                       <h3>Chat application</h3>
                     </div>
                   </div>
                 </a>
+              </div>
+
+
                 {/* <div className="projects">
                   <div className="project-img">
                     <img src="https://img.freepik.com/free-photo/project-management-planning-development-message-box-notification-graphic_53876-123902.jpg?t=st=1739350068~exp=1739353668~hmac=4cb46d19698569abd104a66ab7512ef66cf6c4977c71fa04b2ce4d35d5737ba3&w=996" alt="" />
@@ -403,7 +465,10 @@ function App() {
                     <h3>Chat application</h3>
                   </div>
                 </div> */}
-              </div>
+              {/* </div> */}
+
+
+
             </div>
             </motion.div>
             <motion.div initial={{ opacity: 0, skewX: 15 }} whileInView={{ opacity: 1, skewX: 0 }} transition={{ duration: 0.6, ease: "easeOut" }} viewport={{ once: false, amount: 0.3 }} >
