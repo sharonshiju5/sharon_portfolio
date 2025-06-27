@@ -3,6 +3,7 @@ import emailjs from "@emailjs/browser";
 import { motion, AnimatePresence } from "framer-motion";
 import { ToastContainer, toast } from 'react-toastify';
 import './App.css'
+import project from "./assets/project.png"
 import pro from "./assets/profil.jpg"
 function App() {
   const textRef = useRef(null);
@@ -366,6 +367,7 @@ function App() {
             <motion.div initial={{ opacity: 0, scale: 0.8 }} whileInView={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, ease: "easeOut" }} viewport={{ once: false, amount: 0.3 }} >
             <div className="projects-div" >
               <div className="project-section" >
+                <a href="https://github.com/sharonshiju5/e-comerce_project">
                 <div className="projects">
                   <div className="project-img">
                     <img src="https://img.freepik.com/free-photo/project-management-planning-development-message-box-notification-graphic_53876-123902.jpg?t=st=1739350068~exp=1739353668~hmac=4cb46d19698569abd104a66ab7512ef66cf6c4977c71fa04b2ce4d35d5737ba3&w=996" alt="" />
@@ -374,15 +376,18 @@ function App() {
                     <h3>E-comerce</h3>
                   </div>
                 </div>
-                <div className="projects">
-                  <div className="project-img">
-                    <img src="https://img.freepik.com/free-photo/project-management-planning-development-message-box-notification-graphic_53876-123902.jpg?t=st=1739350068~exp=1739353668~hmac=4cb46d19698569abd104a66ab7512ef66cf6c4977c71fa04b2ce4d35d5737ba3&w=996" alt="" />
+                </a>
+                <a href="https://github.com/sharonshiju5/chatapplication">  
+                  <div className="projects">
+                    <div className="project-img">
+                      <img src="https://img.freepik.com/free-photo/project-management-planning-development-message-box-notification-graphic_53876-123902.jpg?t=st=1739350068~exp=1739353668~hmac=4cb46d19698569abd104a66ab7512ef66cf6c4977c71fa04b2ce4d35d5737ba3&w=996" alt="" />
+                    </div>
+                    <div className="project-name">
+                      <h3>Chat application</h3>
+                    </div>
                   </div>
-                  <div className="project-name">
-                    <h3>Chat application</h3>
-                  </div>
-                </div>
-                <div className="projects">
+                </a>
+                {/* <div className="projects">
                   <div className="project-img">
                     <img src="https://img.freepik.com/free-photo/project-management-planning-development-message-box-notification-graphic_53876-123902.jpg?t=st=1739350068~exp=1739353668~hmac=4cb46d19698569abd104a66ab7512ef66cf6c4977c71fa04b2ce4d35d5737ba3&w=996" alt="" />
                   </div>
@@ -397,7 +402,7 @@ function App() {
                   <div className="project-name">
                     <h3>Chat application</h3>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
             </motion.div>
