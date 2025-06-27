@@ -312,7 +312,7 @@ function App() {
                     lets talk
                   </motion.button>
                 </a>
-                <a href="/sharon_shiju_cv.pdf"  download="sharon_shiju_cv.pdf"  target="_blank"  rel="noopener noreferrer" >
+                <a href="/SharonShijuPk.pdf"  download="SharonShijuPk.pdf"  target="_blank"  rel="noopener noreferrer" >
                   <motion.button className="click-me-btn" whileHover={{ scale: 1.1,  }} whileTap={{ scale: 0.9 }} animate={isClicked ? { scale: [1, 1.2, 1] } : {}} transition={{ duration: 0.2 }} onClick={() => {   setIsClicked(true);   setTimeout(() => setIsClicked(false), 300); }} >
                     Download cv
                   </motion.button>
