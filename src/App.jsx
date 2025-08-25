@@ -39,9 +39,20 @@ const projects = [
   // contact using email
   // contact using email
 
-  const handleEmailClick = () => {
-    window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
-  };
+const handleEmailClick = () => {
+  if (/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
+    // Mobile → use mailto (opens native email app)
+    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  } else {
+    // Desktop → open Gmail compose in browser
+    window.open(
+      `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`,
+      "_blank"
+    );
+  }
+};
+
+
 
 
 
@@ -317,16 +328,18 @@ const projects = [
                       </a>
                   </div>
                   <div className="profile-icons">
-                    <a href="www.linkedin.com/in/sharon-shiju-pk">
+                    <a href="https://www.linkedin.com/in/sharon-shiju-pk/">
                     <img src="https://cdn-icons-png.flaticon.com/128/2111/2111532.png" alt="" />
                     </a>
                   </div>
                   <div className="profile-icons" onClick={handleEmailClick}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgb(255, 255, 255)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: "       ", height: "      " }}><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                   </div>
+                  <a href="https://www.instagram.com/_sharon.shiju/">
                   <div className="profile-icons">
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgb(255, 255, 255)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: "       ", height: "      " }}><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
                   </div>
+                  </a>
               </div>
             </div>
             <div className="profile-section" style={{height:"10%"}}>
@@ -446,6 +459,19 @@ const projects = [
                     </div>
                   </div>
                 </a>
+
+
+                {/* <div className="projects">
+                  <div className="project-img">
+                    <img src="https://img.freepik.com/free-photo/project-management-planning-development-message-box-notification-graphic_53876-123902.jpg?t=st=1739350068~exp=1739353668~hmac=4cb46d19698569abd104a66ab7512ef66cf6c4977c71fa04b2ce4d35d5737ba3&w=996" alt="" />
+                  </div>
+                  <div className="project-name">
+                    <h3>api tester</h3>
+                  </div>
+                </div> */}
+
+
+
               </div>
 
 
@@ -456,8 +482,10 @@ const projects = [
                   <div className="project-name">
                     <h3>api tester</h3>
                   </div>
-                </div>
-                <div className="projects">
+                </div> */}
+
+
+                {/* <div className="projects">
                   <div className="project-img">
                     <img src="https://img.freepik.com/free-photo/project-management-planning-development-message-box-notification-graphic_53876-123902.jpg?t=st=1739350068~exp=1739353668~hmac=4cb46d19698569abd104a66ab7512ef66cf6c4977c71fa04b2ce4d35d5737ba3&w=996" alt="" />
                   </div>
