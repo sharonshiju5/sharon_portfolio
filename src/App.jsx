@@ -6,7 +6,7 @@ import './App.css'
 import project from "./assets/project.png"
 import pro from "./assets/profil.jpg"
 import chatapp from "./assets/chatapplication.png"
-
+import { MdPhone } from "react-icons/md";
 function App() {
   const textRef = useRef(null);
   const email = "sharonshiju261@gmail.com";
@@ -50,6 +50,10 @@ const handleEmailClick = () => {
       "_blank"
     );
   }
+};
+
+const handlePhoneClick = () => {
+  window.location.href = "tel:+919895438132";
 };
 
 
@@ -335,11 +339,9 @@ const handleEmailClick = () => {
                   <div className="profile-icons" onClick={handleEmailClick}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgb(255, 255, 255)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: "       ", height: "      " }}><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                   </div>
-                  <a href="https://www.instagram.com/_sharon.shiju/">
-                  <div className="profile-icons">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgb(255, 255, 255)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: "       ", height: "      " }}><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                  <div className="profile-icons" onClick={handlePhoneClick}>
+                    <MdPhone  size={20} />
                   </div>
-                  </a>
               </div>
             </div>
             <div className="profile-section" style={{height:"10%"}}>
