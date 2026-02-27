@@ -6,5 +6,10 @@ export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
     include: ['clsx']
+  },
+  build: {
+    commonjsOptions: {
+      include: [/clsx/, /node_modules/]
+    }
   }
 })
