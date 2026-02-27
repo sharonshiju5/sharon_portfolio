@@ -350,7 +350,7 @@ const handlePhoneClick = () => {
                     lets talk
                   </motion.button>
                 </a>
-                <a href="/SharonShijuPk.pdf"  download="SharonShijuPk.pdf"  target="_blank"  rel="noopener noreferrer" >
+                <a href="/sharon_mernstack_developer.pdf"  download="sharon_mernstack_developer.pdf"  target="_blank"  rel="noopener noreferrer" >
                   <motion.button className="click-me-btn" whileHover={{ scale: 1.1,  }} whileTap={{ scale: 0.9 }} animate={isClicked ? { scale: [1, 1.2, 1] } : {}} transition={{ duration: 0.2 }} onClick={() => {   setIsClicked(true);   setTimeout(() => setIsClicked(false), 300); }} >
                     Download cv
                   </motion.button>
