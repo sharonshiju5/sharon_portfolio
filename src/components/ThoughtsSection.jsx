@@ -1,0 +1,56 @@
+import { motion } from "framer-motion";
+
+const thoughts = [
+  {
+    title: "Starting and Growing a Career in Web Design",
+    desc: "As the internet continues to develop and grow exponentially, jobs related to the industry do too, particularly those that relate to web design and development.",
+  },
+  {
+    title: "Create a Landing Page That Performs Great",
+    desc: "Whether you work in marketing, sales, or product design, you understand the importance of a quality landing page. Landing pages are standalone websites used to generate leads or sales—in other words they help you increase your revenue.",
+  },
+  {
+    title: "How Can Designers Prepare for the Future?",
+    desc: "Whether you work in marketing, sales, or product design, you understand the importance of a quality landing page. Landing pages are standalone websites used to generate leads or sales—in other words they help you increase your revenue.",
+  },
+];
+
+function ThoughtsSection() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, skewX: 15 }}
+      whileInView={{ opacity: 1, skewX: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      viewport={{ once: false, amount: 0.3 }}
+    >
+      <div className="w-full" style={{ height: "100vh", marginBottom: "0px" }}>
+        <motion.div
+          initial={{ opacity: 0, x: -100 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          viewport={{ once: false, amount: 0.3 }}
+        >
+          <div className="section-title" style={{ marginTop: "420px" }}>
+            <h1 className="title-main" id="thought">DESIGN</h1>
+            <h1 className="title-overlay" style={{ left: "15.6%" }}>THOUGHTS</h1>
+          </div>
+        </motion.div>
+
+        {thoughts.map((item, i) => (
+          <div
+            key={i}
+            className="w-[95%] rounded-[20px] p-[17px] pt-[25px] hover:bg-hover-bg"
+            style={{ height: "28vh", transition: "background-color 1.3s ease" }}
+          >
+            <h2 className="w-[70%] text-[30px]">{item.title}</h2>
+            <p className="mt-[30px] w-[60%] text-[15px]" style={{ color: "rgba(182, 182, 182, 0.666)" }}>
+              {item.desc}
+            </p>
+          </div>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
+export default ThoughtsSection;
