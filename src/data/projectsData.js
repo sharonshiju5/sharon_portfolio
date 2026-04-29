@@ -1,34 +1,4 @@
-import projectImg from "../assets/project.png";
-import chatappImg from "../assets/chatapplication.png";
-
-// ============================================================
-//  HOW TO ADD A NEW PROJECT:
-//  1. Copy the template below
-//  2. Fill in all the fields
-//  3. Add your project image to src/assets/ and import it above
-//  4. Paste the object into the array — that's it!
-// ============================================================
-//
-//  TEMPLATE:
-//  {
-//    id: "unique-slug",            ← used in the URL: /project/unique-slug
-//    name: "Project Name",
-//    shortDesc: "One-line summary",
-//    category: "Full Stack",       ← e.g. "Full Stack", "Frontend", "Backend"
-//    year: "2025",
-//    coverImg: yourImportedImage,   ← import at the top of this file
-//    githubLink: "https://github.com/...",
-//    liveLink: "",                 ← leave empty if no live demo
-//    techStack: ["React", "Node.js"],
-//    description: `Detailed paragraph about the project...`,
-//    features: [
-//      "Feature one",
-//      "Feature two",
-//    ],
-//    challenges: `What was hard and how you solved it...`,
-//    gallery: [yourImportedImage], ← array of images for the gallery
-//  },
-// ============================================================
+import { getCover, getGallery } from "./projectImages";
 
 const projectsData = [
   {
@@ -37,7 +7,7 @@ const projectsData = [
     shortDesc: "Full-stack online shopping experience",
     category: "Full Stack",
     year: "2024",
-    coverImg: projectImg,
+    coverImg: getCover("ecommerce"),
     githubLink: "https://github.com/sharonshiju5/e-comerce_project",
     liveLink: "",
     techStack: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
@@ -52,7 +22,7 @@ const projectsData = [
       "Responsive design for all devices",
     ],
     challenges: `One of the biggest challenges was implementing real-time cart synchronization across tabs and handling concurrent inventory updates. I solved this by implementing optimistic UI updates with server-side validation and WebSocket-based sync.`,
-    gallery: [projectImg],
+    gallery: getGallery("ecommerce"),
   },
   {
     id: "chat-application",
@@ -60,7 +30,7 @@ const projectsData = [
     shortDesc: "Real-time messaging platform",
     category: "Full Stack",
     year: "2024",
-    coverImg: chatappImg,
+    coverImg: getCover("chat-application"),
     githubLink: "https://github.com/sharonshiju5/chatapplication",
     liveLink: "",
     techStack: ["React", "Socket.io", "Node.js", "Express", "MongoDB"],
@@ -75,7 +45,7 @@ const projectsData = [
       "Responsive mobile-first design",
     ],
     challenges: `Managing WebSocket connections at scale and ensuring message delivery even during network interruptions was critical. I implemented a message queue system with automatic retry and offline message caching.`,
-    gallery: [chatappImg],
+    gallery: getGallery("chat-application"),
   },
   {
     id: "portfolio-website",
@@ -83,7 +53,7 @@ const projectsData = [
     shortDesc: "Personal developer portfolio",
     category: "Frontend",
     year: "2025",
-    coverImg: projectImg,
+    coverImg: getCover("portfolio-website"),
     githubLink: "https://github.com/sharonshiju5/sharon_portfolio",
     liveLink: "",
     techStack: ["React", "Framer Motion", "Tailwind CSS", "Vite"],
@@ -98,7 +68,7 @@ const projectsData = [
       "Sticky sidebar layout",
     ],
     challenges: `Creating a performant animation system that works smoothly across devices while maintaining the noise texture overlay was challenging. I optimized by using GPU-accelerated transforms and lazy-loading heavy assets.`,
-    gallery: [projectImg],
+    gallery: getGallery("portfolio-website"),
   },
   {
     id: "task-manager",
@@ -106,7 +76,7 @@ const projectsData = [
     shortDesc: "Productivity & task tracking tool",
     category: "Full Stack",
     year: "2024",
-    coverImg: chatappImg,
+    coverImg: getCover("task-manager"),
     githubLink: "https://github.com/sharonshiju5",
     liveLink: "",
     techStack: ["React", "Node.js", "MongoDB", "Express", "CSS"],
@@ -121,7 +91,7 @@ const projectsData = [
       "Dark and light theme support",
     ],
     challenges: `Implementing smooth drag-and-drop that works on both desktop and mobile required careful handling of touch events and CSS transforms. I built a custom DnD system optimized for performance.`,
-    gallery: [chatappImg],
+    gallery: getGallery("task-manager"),
   },
   {
     id: "weather-dashboard",
@@ -129,7 +99,7 @@ const projectsData = [
     shortDesc: "Real-time weather data visualization",
     category: "Frontend",
     year: "2024",
-    coverImg: projectImg,
+    coverImg: getCover("weather-dashboard"),
     githubLink: "https://github.com/sharonshiju5",
     liveLink: "",
     techStack: ["React", "Chart.js", "OpenWeather API", "CSS"],
@@ -144,7 +114,7 @@ const projectsData = [
       "City search with autocomplete",
     ],
     challenges: `Handling API rate limits while keeping data fresh required implementing a smart caching layer with stale-while-revalidate strategy.`,
-    gallery: [projectImg],
+    gallery: getGallery("weather-dashboard"),
   },
   {
     id: "blog-platform",
@@ -152,7 +122,7 @@ const projectsData = [
     shortDesc: "Content management & blogging system",
     category: "Full Stack",
     year: "2024",
-    coverImg: chatappImg,
+    coverImg: getCover("blog-platform"),
     githubLink: "https://github.com/sharonshiju5",
     liveLink: "",
     techStack: ["React", "Node.js", "MongoDB", "Express", "Markdown"],
@@ -167,7 +137,7 @@ const projectsData = [
       "Reading time estimation",
     ],
     challenges: `Building a performant markdown renderer that supports custom components and syntax highlighting while maintaining XSS safety was the main technical challenge.`,
-    gallery: [chatappImg],
+    gallery: getGallery("blog-platform"),
   },
 ];
 

@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import projectsData from "../data/projectsData";
+import { apiFetch } from "../hooks/api";
+import { imgUrl } from "../components/admin/ImageUpload";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -23,12 +24,19 @@ const cardVariants = {
 
 function ProjectsSection() {
   const [hoveredProject, setHoveredProject] = useState(null);
+  const [projects, setProjects] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    apiFetch("projects-get").then(setProjects).catch(console.error);
+  }, []);
 
   const handleProjectClick = (e, projectId) => {
     e.preventDefault();
     navigate(`/project/${projectId}`);
   };
+
+  if (!projects.length) return null;
 
   return (
     <>
@@ -53,47 +61,43 @@ function ProjectsSection() {
         viewport={{ once: false, amount: 0.1 }}
         className="grid grid-cols-2 gap-5 p-2.5 mb-16 max-[640px]:grid-cols-1"
       >
-        {projectsData.map((proj, index) => (
+        {projects.map((proj, index) => (
           <motion.div
-            key={proj.id}
+            key={proj.projectId}
             variants={cardVariants}
             className="cursor-pointer"
-            onClick={(e) => handleProjectClick(e, proj.id)}
-            onMouseEnter={() => setHoveredProject(proj.id)}
+            onClick={(e) => handleProjectClick(e, proj.projectId)}
+            onMouseEnter={() => setHoveredProject(proj.projectId)}
             onMouseLeave={() => setHoveredProject(null)}
             whileHover={{ y: -8 }}
             transition={{ duration: 0.3 }}
           >
             <div
-              id={`project-card-${proj.id}`}
               className="overflow-hidden rounded-2xl border border-white-5 bg-project-card transition-all duration-400 hover:border-purple-30 hover:shadow-[0_8px_32px_rgba(145,75,241,0.1),0_0_0_1px_rgba(145,75,241,0.15)]"
             >
               {/* Image Area */}
               <div className="relative h-[200px] w-full overflow-hidden bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f3460] max-[640px]:h-[180px]">
-                {/* Bottom gradient */}
                 <div className="pointer-events-none absolute inset-0 z-[2] bg-gradient-to-b from-transparent to-dark-bg/40" />
 
-                {/* Image (visible on hover) */}
                 <motion.div
                   className="absolute inset-0 z-[1]"
                   initial={{ opacity: 0, scale: 1.1 }}
                   animate={{
-                    opacity: hoveredProject === proj.id ? 1 : 0,
-                    scale: hoveredProject === proj.id ? 1 : 1.1,
+                    opacity: hoveredProject === proj.projectId ? 1 : 0,
+                    scale: hoveredProject === proj.projectId ? 1 : 1.1,
                   }}
                   transition={{ duration: 0.5, ease: "easeOut" }}
                 >
                   <img
-                    src={proj.coverImg}
+                    src={imgUrl(proj.coverImg)}
                     alt={proj.name}
                     className="h-full w-full object-cover"
                   />
                 </motion.div>
 
-                {/* Default state — number + icon */}
                 <motion.div
                   className="absolute inset-0 z-[3] flex flex-col justify-between p-5"
-                  animate={{ opacity: hoveredProject === proj.id ? 0 : 1 }}
+                  animate={{ opacity: hoveredProject === proj.projectId ? 0 : 1 }}
                   transition={{ duration: 0.3 }}
                 >
                   <span className="font-outfit text-5xl font-black leading-none text-white/[0.08]">
@@ -108,13 +112,12 @@ function ProjectsSection() {
                   </div>
                 </motion.div>
 
-                {/* Hover label */}
                 <motion.div
                   className="absolute bottom-5 left-5 z-[4] flex items-center gap-2"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{
-                    opacity: hoveredProject === proj.id ? 1 : 0,
-                    y: hoveredProject === proj.id ? 0 : 20,
+                    opacity: hoveredProject === proj.projectId ? 1 : 0,
+                    y: hoveredProject === proj.projectId ? 0 : 20,
                   }}
                   transition={{ duration: 0.4, delay: 0.1 }}
                 >

@@ -1,7 +1,8 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import projectsData from "../data/projectsData";
+import { apiFetch } from "../hooks/api";
+import { imgUrl } from "../components/admin/ImageUpload";
 
 /* ─── Animation Variants ─── */
 const pageVariants = {
@@ -47,12 +48,32 @@ function ProjectDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [activeImage, setActiveImage] = useState(0);
-
-  const project = projectsData.find((p) => p.id === id);
+  const [project, setProject] = useState(null);
+  const [allProjects, setAllProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setLoading(true);
+    Promise.all([
+      apiFetch(`project-get?id=${id}`),
+      apiFetch("projects-get"),
+    ])
+      .then(([proj, all]) => {
+        setProject(proj);
+        setAllProjects(all);
+      })
+      .catch(console.error)
+      .finally(() => setLoading(false));
   }, [id]);
+
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-dark-bg">
+        <p className="text-white-50">Loading...</p>
+      </div>
+    );
+  }
 
   /* ─── 404 ─── */
   if (!project) {
@@ -77,9 +98,9 @@ function ProjectDetail() {
   }
 
   /* ─── Adjacent Projects ─── */
-  const currentIndex = projectsData.findIndex((p) => p.id === id);
-  const prevProject = currentIndex > 0 ? projectsData[currentIndex - 1] : null;
-  const nextProject = currentIndex < projectsData.length - 1 ? projectsData[currentIndex + 1] : null;
+  const currentIndex = allProjects.findIndex((p) => p.projectId === id);
+  const prevProject = currentIndex > 0 ? allProjects[currentIndex - 1] : null;
+  const nextProject = currentIndex < allProjects.length - 1 ? allProjects[currentIndex + 1] : null;
 
   return (
     <AnimatePresence mode="wait">
@@ -112,13 +133,9 @@ function ProjectDetail() {
           <span className="text-sm font-semibold tracking-wide text-white">Back</span>
         </motion.button>
 
-        {/* ═══════════════════════════════════════════════
-            HERO SECTION
-           ═══════════════════════════════════════════════ */}
+        {/* ═══ HERO SECTION ═══ */}
         <section className="mx-auto grid max-w-[1100px] grid-cols-2 items-center gap-15 px-10 pt-[120px] pb-15 max-[920px]:grid-cols-1 max-[920px]:gap-10 max-[920px]:px-6 max-[920px]:pt-[100px] max-[920px]:pb-10">
-          {/* Left — Info */}
           <div className="flex flex-col gap-5">
-            {/* Badges */}
             <motion.div className="flex items-center gap-3" variants={fadeUp}>
               <span className="rounded-md border border-purple-20 bg-purple-12 px-4 py-1.5 text-xs font-bold uppercase tracking-[2px] text-purple-accent">
                 {project.category}
@@ -128,7 +145,6 @@ function ProjectDetail() {
               </span>
             </motion.div>
 
-            {/* Title */}
             <motion.h1
               className="bg-gradient-to-br from-white to-white/70 bg-clip-text font-outfit text-[3.2rem] font-black leading-[1.1] text-transparent max-[920px]:text-[2.4rem] max-[480px]:text-[1.8rem]"
               variants={fadeUp}
@@ -136,16 +152,13 @@ function ProjectDetail() {
               {project.name}
             </motion.h1>
 
-            {/* Description */}
             <motion.p className="max-w-[480px] text-[17px] leading-[1.7] text-white-55" variants={fadeUp}>
               {project.shortDesc}
             </motion.p>
 
-            {/* Action Buttons */}
             <motion.div className="mt-2 flex flex-wrap gap-3.5" variants={fadeUp}>
               {project.githubLink && (
                 <a
-                  id="github-link-btn"
                   href={project.githubLink}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -159,7 +172,6 @@ function ProjectDetail() {
               )}
               {project.liveLink && (
                 <a
-                  id="live-demo-btn"
                   href={project.liveLink}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -176,11 +188,10 @@ function ProjectDetail() {
             </motion.div>
           </div>
 
-          {/* Right — Hero Image */}
           <motion.div className="relative overflow-hidden rounded-[20px]" variants={scaleIn}>
             <div className="absolute -inset-[20%] z-0 blur-[40px] animate-glow-pulse bg-[radial-gradient(ellipse_at_center,rgba(145,75,241,0.15)_0%,transparent_70%)]" />
             <img
-              src={project.coverImg}
+              src={imgUrl(project.coverImg)}
               alt={project.name}
               className="relative z-[1] h-[350px] w-full rounded-[20px] object-cover max-[920px]:h-[280px] max-[480px]:h-[220px]"
             />
@@ -188,93 +199,91 @@ function ProjectDetail() {
           </motion.div>
         </section>
 
-        {/* ═══════════════════════════════════════════════
-            01 — TECH STACK
-           ═══════════════════════════════════════════════ */}
-        <motion.section
-          className="mx-auto max-w-[1100px] px-10 py-15 max-[920px]:px-6 max-[920px]:py-10"
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={staggerContainer}
-        >
-          <motion.h2 className="mb-8 flex items-center gap-4 font-outfit text-[1.8rem] font-extrabold max-[480px]:text-[1.4rem]" variants={fadeUp}>
-            <span className="rounded-md bg-purple-10 px-3 py-1 font-montserrat text-sm font-bold tracking-wide text-purple-accent">01</span>
-            Tech Stack
-          </motion.h2>
-          <motion.div className="flex flex-wrap gap-3" variants={staggerContainer}>
-            {project.techStack.map((tech) => (
-              <motion.div
-                key={tech}
-                className="flex cursor-default items-center gap-2.5 rounded-xl border border-white-8 bg-white-4 px-5 py-3 text-sm font-medium text-white-80 transition-all duration-300 hover:border-purple-30 hover:bg-purple-10"
-                variants={listItem}
-                whileHover={{ scale: 1.08 }}
-              >
-                <span className="h-2 w-2 rounded-full bg-purple-accent shadow-[0_0_8px_rgba(145,75,241,0.5)]" />
-                {tech}
-              </motion.div>
-            ))}
-          </motion.div>
-        </motion.section>
-
-        {/* ═══════════════════════════════════════════════
-            02 — ABOUT
-           ═══════════════════════════════════════════════ */}
-        <motion.section
-          className="mx-auto max-w-[1100px] px-10 py-15 max-[920px]:px-6 max-[920px]:py-10"
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true, amount: 0.3 }}
-        >
-          <motion.h2 className="mb-8 flex items-center gap-4 font-outfit text-[1.8rem] font-extrabold max-[480px]:text-[1.4rem]" variants={fadeUp}>
-            <span className="rounded-md bg-purple-10 px-3 py-1 font-montserrat text-sm font-bold tracking-wide text-purple-accent">02</span>
-            About This Project
-          </motion.h2>
-          <motion.div
-            className="relative overflow-hidden rounded-2xl border border-white-6 bg-white-3 p-8 before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:rounded-l before:bg-gradient-to-b before:from-purple-accent before:to-purple-10"
-            variants={fadeUp}
+        {/* ═══ 01 — TECH STACK ═══ */}
+        {project.techStack?.length > 0 && (
+          <motion.section
+            className="mx-auto max-w-[1100px] px-10 py-15 max-[920px]:px-6 max-[920px]:py-10"
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={staggerContainer}
           >
-            <p className="pl-5 text-base leading-[1.8] text-white-60">{project.description}</p>
-          </motion.div>
-        </motion.section>
+            <motion.h2 className="mb-8 flex items-center gap-4 font-outfit text-[1.8rem] font-extrabold max-[480px]:text-[1.4rem]" variants={fadeUp}>
+              <span className="rounded-md bg-purple-10 px-3 py-1 font-montserrat text-sm font-bold tracking-wide text-purple-accent">01</span>
+              Tech Stack
+            </motion.h2>
+            <motion.div className="flex flex-wrap gap-3" variants={staggerContainer}>
+              {project.techStack.map((tech) => (
+                <motion.div
+                  key={tech}
+                  className="flex cursor-default items-center gap-2.5 rounded-xl border border-white-8 bg-white-4 px-5 py-3 text-sm font-medium text-white-80 transition-all duration-300 hover:border-purple-30 hover:bg-purple-10"
+                  variants={listItem}
+                  whileHover={{ scale: 1.08 }}
+                >
+                  <span className="h-2 w-2 rounded-full bg-purple-accent shadow-[0_0_8px_rgba(145,75,241,0.5)]" />
+                  {tech}
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.section>
+        )}
 
-        {/* ═══════════════════════════════════════════════
-            03 — FEATURES
-           ═══════════════════════════════════════════════ */}
-        <motion.section
-          className="mx-auto max-w-[1100px] px-10 py-15 max-[920px]:px-6 max-[920px]:py-10"
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={staggerContainer}
-        >
-          <motion.h2 className="mb-8 flex items-center gap-4 font-outfit text-[1.8rem] font-extrabold max-[480px]:text-[1.4rem]" variants={fadeUp}>
-            <span className="rounded-md bg-purple-10 px-3 py-1 font-montserrat text-sm font-bold tracking-wide text-purple-accent">03</span>
-            Key Features
-          </motion.h2>
-          <motion.div className="grid grid-cols-2 gap-3.5 max-[920px]:grid-cols-1" variants={staggerContainer}>
-            {project.features.map((feature, i) => (
-              <motion.div
-                key={i}
-                className="flex cursor-default items-start gap-3.5 rounded-xl border border-white-5 bg-white-3 px-5 py-[18px] transition-all duration-300 hover:border-purple-20 hover:bg-white-5"
-                variants={listItem}
-                whileHover={{ y: -4, scale: 1.02 }}
-              >
-                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-purple-12">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-purple-accent">
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
-                </div>
-                <span className="pt-1 text-sm leading-relaxed text-white-65">{feature}</span>
-              </motion.div>
-            ))}
-          </motion.div>
-        </motion.section>
+        {/* ═══ 02 — ABOUT ═══ */}
+        {project.description && (
+          <motion.section
+            className="mx-auto max-w-[1100px] px-10 py-15 max-[920px]:px-6 max-[920px]:py-10"
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            <motion.h2 className="mb-8 flex items-center gap-4 font-outfit text-[1.8rem] font-extrabold max-[480px]:text-[1.4rem]" variants={fadeUp}>
+              <span className="rounded-md bg-purple-10 px-3 py-1 font-montserrat text-sm font-bold tracking-wide text-purple-accent">02</span>
+              About This Project
+            </motion.h2>
+            <motion.div
+              className="relative overflow-hidden rounded-2xl border border-white-6 bg-white-3 p-8 before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:rounded-l before:bg-gradient-to-b before:from-purple-accent before:to-purple-10"
+              variants={fadeUp}
+            >
+              <p className="pl-5 text-base leading-[1.8] text-white-60">{project.description}</p>
+            </motion.div>
+          </motion.section>
+        )}
 
-        {/* ═══════════════════════════════════════════════
-            04 — GALLERY
-           ═══════════════════════════════════════════════ */}
-        {project.gallery && project.gallery.length > 0 && (
+        {/* ═══ 03 — FEATURES ═══ */}
+        {project.features?.length > 0 && (
+          <motion.section
+            className="mx-auto max-w-[1100px] px-10 py-15 max-[920px]:px-6 max-[920px]:py-10"
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={staggerContainer}
+          >
+            <motion.h2 className="mb-8 flex items-center gap-4 font-outfit text-[1.8rem] font-extrabold max-[480px]:text-[1.4rem]" variants={fadeUp}>
+              <span className="rounded-md bg-purple-10 px-3 py-1 font-montserrat text-sm font-bold tracking-wide text-purple-accent">03</span>
+              Key Features
+            </motion.h2>
+            <motion.div className="grid grid-cols-2 gap-3.5 max-[920px]:grid-cols-1" variants={staggerContainer}>
+              {project.features.map((feature, i) => (
+                <motion.div
+                  key={i}
+                  className="flex cursor-default items-start gap-3.5 rounded-xl border border-white-5 bg-white-3 px-5 py-[18px] transition-all duration-300 hover:border-purple-20 hover:bg-white-5"
+                  variants={listItem}
+                  whileHover={{ y: -4, scale: 1.02 }}
+                >
+                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-purple-12">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-purple-accent">
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  </div>
+                  <span className="pt-1 text-sm leading-relaxed text-white-65">{feature}</span>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.section>
+        )}
+
+        {/* ═══ 04 — GALLERY CAROUSEL ═══ */}
+        {project.gallery?.length > 0 && (
           <motion.section
             className="mx-auto max-w-[1100px] px-10 py-15 max-[920px]:px-6 max-[920px]:py-10"
             initial="initial"
@@ -286,48 +295,91 @@ function ProjectDetail() {
               Project Gallery
             </motion.h2>
             <motion.div className="flex flex-col gap-4" variants={scaleIn}>
-              {/* Main Image */}
-              <div className="relative overflow-hidden rounded-[20px] border border-white-6">
-                <motion.img
-                  key={activeImage}
-                  src={project.gallery[activeImage]}
-                  alt={`${project.name} screenshot ${activeImage + 1}`}
-                  className="block h-[450px] w-full object-cover max-[920px]:h-[300px] max-[480px]:h-[220px]"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.4 }}
-                />
+              {/* Carousel */}
+              <div
+                className="group relative overflow-hidden rounded-[20px] border border-white-6"
+                onKeyDown={(e) => {
+                  if (project.gallery.length <= 1) return;
+                  if (e.key === "ArrowLeft") setActiveImage((p) => (p === 0 ? project.gallery.length - 1 : p - 1));
+                  if (e.key === "ArrowRight") setActiveImage((p) => (p === project.gallery.length - 1 ? 0 : p + 1));
+                }}
+                tabIndex={0}
+                role="region"
+                aria-label="Project gallery carousel"
+              >
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={activeImage}
+                    src={imgUrl(project.gallery[activeImage])}
+                    alt={`${project.name} screenshot ${activeImage + 1}`}
+                    className="block h-[450px] w-full object-cover max-[920px]:h-[300px] max-[480px]:h-[220px]"
+                    initial={{ opacity: 0, x: 60 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -60 }}
+                    transition={{ duration: 0.35, ease: "easeInOut" }}
+                  />
+                </AnimatePresence>
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-dark-bg/50" />
+
+                {/* Prev / Next arrows — only when multiple images */}
+                {project.gallery.length > 1 && (
+                  <>
+                    <button
+                      onClick={() => setActiveImage((p) => (p === 0 ? project.gallery.length - 1 : p - 1))}
+                      className="absolute left-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white-12 bg-dark-bg/70 text-white backdrop-blur-md transition-all duration-300 opacity-0 group-hover:opacity-100 hover:border-purple-30 hover:bg-purple-15"
+                      aria-label="Previous image"
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="15 18 9 12 15 6" />
+                      </svg>
+                    </button>
+                    <button
+                      onClick={() => setActiveImage((p) => (p === project.gallery.length - 1 ? 0 : p + 1))}
+                      className="absolute right-4 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border border-white-12 bg-dark-bg/70 text-white backdrop-blur-md transition-all duration-300 opacity-0 group-hover:opacity-100 hover:border-purple-30 hover:bg-purple-15"
+                      aria-label="Next image"
+                    >
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <polyline points="9 18 15 12 9 6" />
+                      </svg>
+                    </button>
+
+                    {/* Counter badge */}
+                    <span className="absolute top-4 right-4 z-10 rounded-full bg-dark-bg/70 px-3 py-1 text-xs font-medium text-white-60 backdrop-blur-md">
+                      {activeImage + 1} / {project.gallery.length}
+                    </span>
+                  </>
+                )}
               </div>
 
-              {/* Thumbnails */}
+              {/* Dot indicators + thumbnails — only when multiple images */}
               {project.gallery.length > 1 && (
-                <div className="flex gap-3 overflow-x-auto pb-1">
-                  {project.gallery.map((img, i) => (
-                    <motion.button
-                      key={i}
-                      className={`h-[60px] w-[80px] shrink-0 cursor-pointer overflow-hidden rounded-[10px] border-2 p-0 transition-all duration-300 ${
-                        activeImage === i
-                          ? "border-purple-accent shadow-[0_0_12px_rgba(145,75,241,0.3)]"
-                          : "border-white-8"
-                      }`}
-                      style={{ background: "none" }}
-                      onClick={() => setActiveImage(i)}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      <img src={img} alt={`Thumbnail ${i + 1}`} className="h-full w-full object-cover" />
-                    </motion.button>
-                  ))}
+                <div className="flex flex-col items-center gap-3">
+                  {/* Thumbnails */}
+                  <div className="flex gap-3 overflow-x-auto pb-1">
+                    {project.gallery.map((img, i) => (
+                      <motion.button
+                        key={i}
+                        className={`h-[60px] w-[80px] shrink-0 cursor-pointer overflow-hidden rounded-[10px] border-2 p-0 transition-all duration-300 ${
+                          activeImage === i
+                            ? "border-purple-accent shadow-[0_0_12px_rgba(145,75,241,0.3)]"
+                            : "border-white-8 opacity-50 hover:opacity-100"
+                        }`}
+                        style={{ background: "none" }}
+                        onClick={() => setActiveImage(i)}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <img src={imgUrl(img)} alt={`Thumbnail ${i + 1}`} className="h-full w-full object-cover" />
+                      </motion.button>
+                    ))}
+                  </div>
                 </div>
               )}
             </motion.div>
           </motion.section>
         )}
 
-        {/* ═══════════════════════════════════════════════
-            05 — CHALLENGES
-           ═══════════════════════════════════════════════ */}
+        {/* ═══ 05 — CHALLENGES ═══ */}
         {project.challenges && (
           <motion.section
             className="mx-auto max-w-[1100px] px-10 py-15 max-[920px]:px-6 max-[920px]:py-10"
@@ -355,9 +407,7 @@ function ProjectDetail() {
           </motion.section>
         )}
 
-        {/* ═══════════════════════════════════════════════
-            PREV / NEXT NAVIGATION
-           ═══════════════════════════════════════════════ */}
+        {/* ═══ PREV / NEXT NAVIGATION ═══ */}
         <motion.section
           className="mx-auto max-w-[1100px] px-10 pt-10 pb-5 max-[920px]:px-6"
           initial="initial"
@@ -368,7 +418,7 @@ function ProjectDetail() {
             {prevProject ? (
               <motion.button
                 className="flex min-w-[200px] cursor-pointer items-center gap-4 rounded-[14px] border border-white-6 bg-white-3 px-7 py-5 transition-all duration-300 hover:border-purple-20 hover:bg-white-6 max-[920px]:w-full max-[920px]:min-w-0"
-                onClick={() => navigate(`/project/${prevProject.id}`)}
+                onClick={() => navigate(`/project/${prevProject.projectId}`)}
                 variants={fadeLeft}
                 whileHover={{ x: -6 }}
               >
@@ -386,7 +436,7 @@ function ProjectDetail() {
             {nextProject ? (
               <motion.button
                 className="flex min-w-[200px] cursor-pointer items-center gap-4 rounded-[14px] border border-white-6 bg-white-3 px-7 py-5 transition-all duration-300 hover:border-purple-20 hover:bg-white-6 max-[920px]:w-full max-[920px]:min-w-0"
-                onClick={() => navigate(`/project/${nextProject.id}`)}
+                onClick={() => navigate(`/project/${nextProject.projectId}`)}
                 variants={fadeRight}
                 whileHover={{ x: 6 }}
               >

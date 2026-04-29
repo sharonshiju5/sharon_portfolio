@@ -1,0 +1,19 @@
+import { getDb, json, error } from "./lib/db.mjs";
+import { requireAuth, handleOptions } from "./lib/auth.mjs";
+
+export default async (request) => {
+  if (request.method === "OPTIONS") return handleOptions();
+  if (request.method !== "DELETE") return error("Method not allowed", 405);
+
+  const authError = requireAuth(request);
+  if (authError) return authError;
+
+  const url = new URL(request.url);
+  const id = url.searchParams.get("id");
+  if (!id) return error("Missing project id");
+
+  const db = await getDb();
+  const result = await db.collection("projects").deleteOne({ projectId: id });
+  if (result.deletedCount === 0) return error("Project not found", 404);
+  return json({ success: true });
+};
