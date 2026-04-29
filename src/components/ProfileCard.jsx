@@ -83,7 +83,7 @@ function ProfileCard() {
     >
       <div
         ref={cardRef}
-        className="w-[304px] p-[25px] rounded-[15px] bg-card-bg flex flex-col items-center gap-4 max-[920px]:w-full max-[920px]:max-w-[400px] max-[920px]:py-8 max-[426px]:max-w-full max-[426px]:rounded-[12px]"
+        className="w-[304px] mt-20 lg:mt-0 p-[25px] rounded-[15px] bg-card-bg flex flex-col items-center gap-4 max-[920px]:w-full max-[920px]:max-w-[400px] max-[920px]:py-8 max-[426px]:max-w-full max-[426px]:rounded-[12px]"
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         style={{ transition: "transform 0.1s ease-out" }}

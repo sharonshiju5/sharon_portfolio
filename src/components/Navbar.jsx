@@ -64,8 +64,8 @@ const navItems = [
 
 function Navbar() {
   return (
-    <nav className="w-full h-[90px] flex justify-center items-center max-[920px]:h-[60px] max-[920px]:px-4 sticky top-0 z-50">
-      <div className="w-[386px] h-10 p-px bg-nav-bg rounded-[10px] flex items-center justify-around max-[920px]:w-[90%] max-[426px]:w-full">
+    <nav className="w-full h-[90px] flex justify-center items-center max-[920px]:h-[60px] max-[920px]:px-4 sticky top-0 z-50 max-[920px]:fixed max-[920px]:top-0 max-[920px]:left-0 max-[920px]:bg-dark-bg/80 max-[920px]:backdrop-blur-xl">
+      <div className="w-[306px] h-10 p-px bg-nav-bg rounded-[10px] flex items-center justify-around max-[920px]:w-[90%] max-[426px]:w-full">
         {navItems.map((item) => (
           <div
             key={item.label}
@@ -79,9 +79,9 @@ function Navbar() {
             >
               {item.icon}
             </a>
-            <p className="absolute top-full mt-1 text-transparent text-sm capitalize transition-colors duration-700 group-hover:text-white">
+            <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded bg-nav-bg text-xs text-white capitalize whitespace-nowrap opacity-0 scale-90 transition-all duration-200 group-hover:opacity-100 group-hover:scale-100 pointer-events-none">
               {item.label}
-            </p>
+            </span>
           </div>
         ))}
       </div>

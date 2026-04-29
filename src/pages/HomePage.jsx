@@ -12,11 +12,21 @@ import ContactForm from "../components/ContactForm";
 
 function HomePage() {
   useEffect(() => {
-    document.body.style.overflow = "hidden";
-    document.body.style.height = "100vh";
+    const handleResize = () => {
+      if (window.innerWidth > 920) {
+        document.body.style.overflow = "hidden";
+        document.body.style.height = "100vh";
+      } else {
+        document.body.style.overflow = "";
+        document.body.style.height = "";
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
     return () => {
       document.body.style.overflow = "";
       document.body.style.height = "";
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
   return (
