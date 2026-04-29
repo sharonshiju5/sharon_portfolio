@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { ToastContainer } from "react-toastify";
 
@@ -10,6 +11,14 @@ import ToolsSection from "../components/ToolsSection";
 import ContactForm from "../components/ContactForm";
 
 function HomePage() {
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    document.body.style.height = "100vh";
+    return () => {
+      document.body.style.overflow = "";
+      document.body.style.height = "";
+    };
+  }, []);
   return (
     <>
       <div className="noise-overlay"></div>
