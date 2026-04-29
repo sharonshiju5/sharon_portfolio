@@ -1,3 +1,5 @@
+import crypto from "crypto";
+globalThis.crypto ??= crypto;
 import { MongoClient } from "mongodb";
 
 let cachedClient = null;
