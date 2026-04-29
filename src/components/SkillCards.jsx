@@ -8,7 +8,7 @@ function SkillCards() {
       transition={{ duration: 0.6, ease: "easeOut" }}
       viewport={{ once: false, amount: 0.3 }}
     >
-      <div className="w-full h-[250px] mt-[180px] flex justify-between max-920:mt-[300px] max-426:hidden">
+      <div className="w-full h-[250px] mt-[180px] flex justify-between max-[920px]:mt-[40px] max-[920px]:h-[200px] max-[426px]:hidden">
         {/* Orange Card */}
         <div className="w-[46%] h-full bg-card-orange rounded-[15px] relative">
           <div className="h-[35px] w-[35px] relative">
@@ -18,7 +18,7 @@ function SkillCards() {
               alt=""
             />
           </div>
-          <p className="absolute text-[23px] font-extrabold left-[25px] top-[120px] max-992:text-[1.3rem]">
+          <p className="absolute text-[23px] font-extrabold left-[25px] top-[120px] max-[992px]:text-[1.3rem] max-[920px]:text-lg">
             DYNAMIC ANIMATION, MOTION DESIGN
           </p>
           <svg className="absolute bottom-0 right-0 w-full h-[60%]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 388 155" fill="transparent" stroke="rgba(202,89,46,0.4)" strokeWidth="5" strokeMiterlimit="10">
@@ -38,7 +38,7 @@ function SkillCards() {
               <line x1="9" y1="21" x2="9" y2="9"></line>
             </svg>
           </div>
-          <p className="absolute text-[23px] font-extrabold left-[25px] top-[120px] max-992:text-[1.3rem]">
+          <p className="absolute text-[23px] font-extrabold left-[25px] top-[120px] max-[992px]:text-[1.3rem] max-[920px]:text-lg">
             REACTJS, FIGMA,
           </p>
           <svg className="absolute bottom-0 right-0 w-full h-[60%]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 422 284" fill="transparent" stroke="rgba(108,227,182,0.5)" strokeWidth="5" strokeMiterlimit="10">

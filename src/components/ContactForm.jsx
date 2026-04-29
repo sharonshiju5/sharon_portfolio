@@ -69,21 +69,21 @@ function ContactForm() {
         transition={{ duration: 0.6, ease: "easeOut" }}
         viewport={{ once: false, amount: 0.3 }}
       >
-        <div className="section-title" style={{ marginTop: "130px" }}>
+        <div className="section-title mt-[130px] max-[920px]:mt-[80px] max-[426px]:mt-[60px]">
           <h1 className="title-main" id="contact">LET&apos;S WORK</h1>
           <h1 className="title-overlay" style={{ left: "17.5%" }}>TOGETHER</h1>
         </div>
       </motion.div>
 
-      <div className="mt-[50px] flex w-[95%] flex-wrap justify-between" style={{ height: "60vh" }}>
+      <div className="-mt-12 w-[95%] max-[920px]:w-full max-[920px]:px-2 mb-20">
         <motion.div
           initial={{ opacity: 0, rotateY: 90 }}
           whileInView={{ opacity: 1, rotateY: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
           viewport={{ once: false, amount: 0.3 }}
         >
-          <form onSubmit={handleSubmit} className="flex flex-wrap" style={{ height: "55vh" }}>
-            <label className="h-10 w-[45%] p-[10px]">
+          <form onSubmit={handleSubmit} className="flex flex-wrap gap-y-4">
+            <label className="w-[45%] p-2 max-[640px]:w-full">
               name
               <input
                 type="text"
@@ -92,10 +92,10 @@ function ContactForm() {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="mt-[10px] h-[30px] w-[97%] rounded-[5px] border border-gray-500 bg-input-bg pl-[15px] text-white"
+                className="mt-2 h-[38px] w-full rounded-[5px] border border-gray-500 bg-input-bg pl-4 text-white"
               />
             </label>
-            <label className="h-10 w-[45%] p-[10px]">
+            <label className="w-[45%] p-2 max-[640px]:w-full">
               email
               <input
                 type="text"
@@ -103,18 +103,18 @@ function ContactForm() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="mt-[10px] h-[30px] w-[97%] rounded-[5px] border border-gray-500 bg-input-bg pl-[15px] text-white"
+                className="mt-2 h-[38px] w-full rounded-[5px] border border-gray-500 bg-input-bg pl-4 text-white"
               />
             </label>
-            <label className="h-10 w-full p-[10px]">
+            <label className="w-full p-2">
               company
               <input
                 type="text"
                 placeholder="your company"
-                className="mt-[10px] h-[30px] w-[97%] rounded-[5px] border border-gray-500 bg-input-bg pl-[15px] text-white"
+                className="mt-2 h-[38px] w-full rounded-[5px] border border-gray-500 bg-input-bg pl-4 text-white"
               />
             </label>
-            <label className="h-20 w-full p-[10px]">
+            <label className="w-full p-2">
               message
               <textarea
                 name="message"
@@ -122,12 +122,12 @@ function ContactForm() {
                 value={formData.message}
                 onChange={handleChange}
                 required
-                className="mt-[10px] h-20 w-[97%] resize-none rounded-[5px] border border-gray-500 bg-input-bg pl-[15px] text-white"
+                className="mt-2 h-24 w-full resize-none rounded-[5px] border border-gray-500 bg-input-bg pl-4 pt-3 text-white"
               />
             </label>
             <button
               type="submit"
-              className="ml-[10px] mt-[30px] h-10 w-full rounded-[7px] border border-white bg-purple-accent text-lg"
+              className="mx-2 mt-4 h-11 w-full rounded-[7px] border border-white bg-purple-accent text-lg cursor-pointer"
             >
               send message
             </button>

@@ -1,0 +1,174 @@
+import projectImg from "../assets/project.png";
+import chatappImg from "../assets/chatapplication.png";
+
+// ============================================================
+//  HOW TO ADD A NEW PROJECT:
+//  1. Copy the template below
+//  2. Fill in all the fields
+//  3. Add your project image to src/assets/ and import it above
+//  4. Paste the object into the array — that's it!
+// ============================================================
+//
+//  TEMPLATE:
+//  {
+//    id: "unique-slug",            ← used in the URL: /project/unique-slug
+//    name: "Project Name",
+//    shortDesc: "One-line summary",
+//    category: "Full Stack",       ← e.g. "Full Stack", "Frontend", "Backend"
+//    year: "2025",
+//    coverImg: yourImportedImage,   ← import at the top of this file
+//    githubLink: "https://github.com/...",
+//    liveLink: "",                 ← leave empty if no live demo
+//    techStack: ["React", "Node.js"],
+//    description: `Detailed paragraph about the project...`,
+//    features: [
+//      "Feature one",
+//      "Feature two",
+//    ],
+//    challenges: `What was hard and how you solved it...`,
+//    gallery: [yourImportedImage], ← array of images for the gallery
+//  },
+// ============================================================
+
+const projectsData = [
+  {
+    id: "ecommerce",
+    name: "E-Commerce Platform",
+    shortDesc: "Full-stack online shopping experience",
+    category: "Full Stack",
+    year: "2024",
+    coverImg: projectImg,
+    githubLink: "https://github.com/sharonshiju5/e-comerce_project",
+    liveLink: "",
+    techStack: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
+    description: `A comprehensive e-commerce platform built with the MERN stack. This project features a modern, responsive UI with product browsing, cart management, user authentication, and order tracking. The backend is powered by Express.js with MongoDB for data persistence, featuring RESTful APIs and JWT-based authentication.`,
+    features: [
+      "User authentication & authorization with JWT",
+      "Product catalog with search and filtering",
+      "Shopping cart with real-time updates",
+      "Secure checkout process",
+      "Order history and tracking",
+      "Admin dashboard for product management",
+      "Responsive design for all devices",
+    ],
+    challenges: `One of the biggest challenges was implementing real-time cart synchronization across tabs and handling concurrent inventory updates. I solved this by implementing optimistic UI updates with server-side validation and WebSocket-based sync.`,
+    gallery: [projectImg],
+  },
+  {
+    id: "chat-application",
+    name: "Chat Application",
+    shortDesc: "Real-time messaging platform",
+    category: "Full Stack",
+    year: "2024",
+    coverImg: chatappImg,
+    githubLink: "https://github.com/sharonshiju5/chatapplication",
+    liveLink: "",
+    techStack: ["React", "Socket.io", "Node.js", "Express", "MongoDB"],
+    description: `A real-time chat application enabling instant messaging between users. Built with Socket.io for WebSocket communication, this app supports one-on-one conversations, group chats, and real-time typing indicators. The interface features a sleek dark theme with smooth animations.`,
+    features: [
+      "Real-time messaging with Socket.io",
+      "One-on-one and group conversations",
+      "Typing indicators and online status",
+      "Message read receipts",
+      "User profile customization",
+      "Message search functionality",
+      "Responsive mobile-first design",
+    ],
+    challenges: `Managing WebSocket connections at scale and ensuring message delivery even during network interruptions was critical. I implemented a message queue system with automatic retry and offline message caching.`,
+    gallery: [chatappImg],
+  },
+  {
+    id: "portfolio-website",
+    name: "Portfolio Website",
+    shortDesc: "Personal developer portfolio",
+    category: "Frontend",
+    year: "2025",
+    coverImg: projectImg,
+    githubLink: "https://github.com/sharonshiju5/sharon_portfolio",
+    liveLink: "",
+    techStack: ["React", "Framer Motion", "Tailwind CSS", "Vite"],
+    description: `A modern, animated portfolio website showcasing my projects and skills. Built with React and Framer Motion for smooth page transitions and scroll-triggered animations. Features a noise-textured dark theme with purple accents for a premium feel.`,
+    features: [
+      "Smooth scroll-triggered animations",
+      "Interactive project showcase",
+      "Dynamic typing effect",
+      "Responsive across all breakpoints",
+      "Contact form with EmailJS",
+      "Noise texture overlay for depth",
+      "Sticky sidebar layout",
+    ],
+    challenges: `Creating a performant animation system that works smoothly across devices while maintaining the noise texture overlay was challenging. I optimized by using GPU-accelerated transforms and lazy-loading heavy assets.`,
+    gallery: [projectImg],
+  },
+  {
+    id: "task-manager",
+    name: "Task Manager App",
+    shortDesc: "Productivity & task tracking tool",
+    category: "Full Stack",
+    year: "2024",
+    coverImg: chatappImg,
+    githubLink: "https://github.com/sharonshiju5",
+    liveLink: "",
+    techStack: ["React", "Node.js", "MongoDB", "Express", "CSS"],
+    description: `A productivity-focused task management application with drag-and-drop functionality, priority tagging, and deadline tracking. Users can organize tasks into boards and lists, similar to Trello, with a clean and intuitive interface.`,
+    features: [
+      "Drag-and-drop task organization",
+      "Priority levels and color coding",
+      "Deadline tracking with reminders",
+      "Board and list views",
+      "Task assignment and collaboration",
+      "Progress analytics dashboard",
+      "Dark and light theme support",
+    ],
+    challenges: `Implementing smooth drag-and-drop that works on both desktop and mobile required careful handling of touch events and CSS transforms. I built a custom DnD system optimized for performance.`,
+    gallery: [chatappImg],
+  },
+  {
+    id: "weather-dashboard",
+    name: "Weather Dashboard",
+    shortDesc: "Real-time weather data visualization",
+    category: "Frontend",
+    year: "2024",
+    coverImg: projectImg,
+    githubLink: "https://github.com/sharonshiju5",
+    liveLink: "",
+    techStack: ["React", "Chart.js", "OpenWeather API", "CSS"],
+    description: `A beautiful weather dashboard that displays real-time weather data with interactive charts and forecasts. Features location-based weather detection, 7-day forecasts, and animated weather icons.`,
+    features: [
+      "Real-time weather data from OpenWeather API",
+      "Interactive temperature and humidity charts",
+      "7-day weather forecast",
+      "Location-based auto-detection",
+      "Animated weather condition icons",
+      "Hourly breakdown view",
+      "City search with autocomplete",
+    ],
+    challenges: `Handling API rate limits while keeping data fresh required implementing a smart caching layer with stale-while-revalidate strategy.`,
+    gallery: [projectImg],
+  },
+  {
+    id: "blog-platform",
+    name: "Blog Platform",
+    shortDesc: "Content management & blogging system",
+    category: "Full Stack",
+    year: "2024",
+    coverImg: chatappImg,
+    githubLink: "https://github.com/sharonshiju5",
+    liveLink: "",
+    techStack: ["React", "Node.js", "MongoDB", "Express", "Markdown"],
+    description: `A full-featured blogging platform with markdown support, rich text editing, and a clean reading experience. Includes user authentication, comment system, and content categorization.`,
+    features: [
+      "Markdown editor with live preview",
+      "User authentication and profiles",
+      "Comment system with threading",
+      "Category and tag management",
+      "Search with full-text indexing",
+      "SEO-optimized article pages",
+      "Reading time estimation",
+    ],
+    challenges: `Building a performant markdown renderer that supports custom components and syntax highlighting while maintaining XSS safety was the main technical challenge.`,
+    gallery: [chatappImg],
+  },
+];
+
+export default projectsData;

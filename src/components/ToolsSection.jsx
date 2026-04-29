@@ -83,28 +83,28 @@ function ToolsSection() {
         transition={{ duration: 0.6, ease: "easeOut" }}
         viewport={{ once: false, amount: 0.3 }}
       >
-        <div className="section-title" style={{ marginTop: "420px" }}>
+        <div className="section-title mt-[420px] max-[920px]:mt-[120px] max-[426px]:mt-[80px]">
           <h1 className="title-main" id="footer">Top-Tier</h1>
           <h1 className="title-overlay" style={{ left: "10%" }}>Tools</h1>
         </div>
       </motion.div>
 
-      <div className="flex w-full flex-wrap justify-between">
+      <div className="flex w-full flex-wrap justify-between max-[920px]:gap-2 max-[426px]:flex-col">
         {tools.map((tool, i) => (
           <div
             key={i}
-            className="flex w-[43.9%] items-center rounded-lg p-[15px] mb-[15px] hover:bg-hover-bg"
-            style={{ height: "5vh" }}
+            className="flex w-[43.9%] items-center rounded-lg p-[15px] mb-[15px] hover:bg-hover-bg max-[920px]:w-[48%] max-[426px]:w-full"
+            style={{ minHeight: "50px" }}
           >
             <div className="tool-icon-box">
               {tool.type === "img" ? (
-                <img src={tool.src} alt={tool.name} />
+                <img className="w-full h-full object-contain" src={tool.src} alt={tool.name} />
               ) : (
                 tool.icon
               )}
             </div>
             <div>
-              <h1 className="text-[26px] font-normal capitalize text-tool-text" style={{ marginTop: "-15px" }}>
+              <h1 className="text-[26px] font-normal capitalize text-tool-text max-[426px]:text-xl" >
                 {tool.name}
               </h1>
             </div>

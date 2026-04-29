@@ -78,7 +78,7 @@ function ProfileCard() {
       viewport={{ once: false, amount: 0.3 }}
     >
       <div
-        className="h-[560px] w-[304px] p-[25px] rounded-[15px] bg-card-bg flex flex-wrap justify-center items-center max-1442:h-[530px]"
+        className="w-[304px] p-[25px] rounded-[15px] bg-card-bg flex flex-col items-center gap-4 max-[920px]:w-full max-[920px]:max-w-[400px] max-[920px]:py-8 max-[426px]:max-w-full max-[426px]:rounded-[12px]"
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         style={{
@@ -87,13 +87,13 @@ function ProfileCard() {
         }}
       >
         {/* Profile Image */}
-        <div className="h-[44%] w-[85%] flex flex-wrap justify-center -mt-5 transition-all duration-200 ease-in">
+        <div className="w-[85%] h-[220px] flex justify-center max-[920px]:h-[200px]">
           <img src={pro} alt="" className="w-full h-full object-cover rounded-[20px]" />
         </div>
 
         {/* Profile Info */}
-        <div className="h-[30%] w-[85%] flex flex-wrap justify-center -mt-5 transition-all duration-200 ease-in">
-          <p className="text-[37px] m-0 font-black font-outfit text-white max-1025:text-[2rem] max-992:text-[1.5rem]">
+        <div className="w-[85%] flex flex-wrap justify-center">
+          <p className="text-[37px] m-0 font-black font-outfit text-white whitespace-nowrap max-1025:text-[2rem] max-992:text-[1.5rem] max-[426px]:text-[1.6rem]">
             Sharon Shiju
           </p>
           I&apos;m a{" "}
@@ -142,12 +142,12 @@ function ProfileCard() {
         </div>
 
         {/* Action Buttons */}
-        <div className="h-[10%] w-[85%] flex flex-wrap justify-center -mt-5 transition-all duration-200 ease-in">
+        <div className="w-[85%] flex flex-col items-center gap-2">
           <a href="#contact" className="w-full">
             <motion.button
-              className="w-[90%] h-10 mt-[10px] border border-gray-500 rounded-lg bg-purple-accent capitalize"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+              className="w-full h-10 border border-gray-500 rounded-lg bg-purple-accent capitalize"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               animate={isClicked ? { scale: [1, 1.2, 1] } : {}}
               transition={{ duration: 0.2 }}
               onClick={handleBtnClick}
@@ -160,11 +160,12 @@ function ProfileCard() {
             download="sharon_mernstack_developer.pdf"
             target="_blank"
             rel="noopener noreferrer"
+            className="w-full"
           >
             <motion.button
-              className="w-[90%] h-10 mt-[10px] border border-gray-500 rounded-lg bg-purple-accent capitalize"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+              className="w-full h-10 border border-gray-500 rounded-lg bg-purple-accent capitalize"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               animate={isClicked ? { scale: [1, 1.2, 1] } : {}}
               transition={{ duration: 0.2 }}
               onClick={handleBtnClick}
