@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { MdPhone } from "react-icons/md";
 import pro from "../assets/profil.jpg";
@@ -9,7 +9,7 @@ function ProfileCard() {
   const body = "Hi Sharon, I saw your portfolio and wanted to reach out.";
 
   const [isClicked, setIsClicked] = useState(false);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const cardRef = useRef(null);
 
   // Typing effect
   const texts = [" Web Developer", " React Expert", " BACKEND Developer"];
@@ -22,32 +22,36 @@ function ProfileCard() {
 
   useEffect(() => {
     const currentText = texts[index];
+    let timeout;
     if (isDeleting) {
       if (charIndex > 0) {
-        setTimeout(() => setCharIndex((prev) => prev - 1), deletingSpeed);
+        timeout = setTimeout(() => setCharIndex((prev) => prev - 1), deletingSpeed);
       } else {
         setIsDeleting(false);
         setIndex((prev) => (prev + 1) % texts.length);
       }
     } else {
       if (charIndex < currentText.length) {
-        setTimeout(() => setCharIndex((prev) => prev + 1), typingSpeed);
+        timeout = setTimeout(() => setCharIndex((prev) => prev + 1), typingSpeed);
       } else {
-        setTimeout(() => setIsDeleting(true), pauseTime);
+        timeout = setTimeout(() => setIsDeleting(true), pauseTime);
       }
     }
-  }, [charIndex, isDeleting, index, texts]);
+    return () => clearTimeout(timeout);
+  }, [charIndex, isDeleting, index]);
 
   const handleMouseMove = (e) => {
-    const { clientX, clientY } = e;
-    const rect = e.target.getBoundingClientRect();
-    const moveX = ((clientX - (rect.left + rect.width / 2)) / rect.width) * 20;
-    const moveY = ((clientY - (rect.top + rect.height / 2)) / rect.height) * 20;
-    setPosition({ x: moveX, y: moveY });
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const moveX = ((e.clientX - (rect.left + rect.width / 2)) / rect.width) * 20;
+    const moveY = ((e.clientY - (rect.top + rect.height / 2)) / rect.height) * 20;
+    cardRef.current.style.transform = `translate(${moveX}px, ${moveY}px)`;
   };
 
   const handleMouseLeave = () => {
-    setPosition({ x: 0, y: 0 });
+    if (cardRef.current) {
+      cardRef.current.style.transform = `translate(0px, 0px)`;
+    }
   };
 
   const handleEmailClick = () => {
@@ -78,13 +82,11 @@ function ProfileCard() {
       viewport={{ once: false, amount: 0.3 }}
     >
       <div
+        ref={cardRef}
         className="w-[304px] p-[25px] rounded-[15px] bg-card-bg flex flex-col items-center gap-4 max-[920px]:w-full max-[920px]:max-w-[400px] max-[920px]:py-8 max-[426px]:max-w-full max-[426px]:rounded-[12px]"
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        style={{
-          transform: `translate(${position.x}px, ${position.y}px)`,
-          transition: "transform 0.1s ease-out",
-        }}
+        style={{ transition: "transform 0.1s ease-out" }}
       >
         {/* Profile Image */}
         <div className="w-[85%] h-[220px] flex justify-center max-[920px]:h-[200px]">
@@ -92,24 +94,25 @@ function ProfileCard() {
         </div>
 
         {/* Profile Info */}
-        <div className="w-[85%] flex flex-wrap justify-center">
-          <p className="text-[37px] m-0 font-black font-outfit text-white whitespace-nowrap max-1025:text-[2rem] max-992:text-[1.5rem] max-[426px]:text-[1.6rem]">
+        <div className="w-[85%] flex flex-col items-center">
+          <p className="text-[37px] font-black font-outfit text-white whitespace-nowrap max-1025:text-[2rem] max-992:text-[1.5rem] max-[426px]:text-[1.6rem]">
             Sharon Shiju
           </p>
-          I&apos;m a{" "}
-          <motion.span
-            key={texts[index]}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.5 }}
-            className="text-purple-accent font-bold"
-          >
-            {" " + texts[index].substring(0, charIndex)}
-          </motion.span>
-          <span className="text-[32px] font-bold text-purple-accent animate-blink">|</span>
-          <p className="w-full text-center"></p><br />
-          <p>india,kerala</p>
+          <p className="text-sm mt-1">
+            I&apos;m a
+            <motion.span
+              key={texts[index]}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.5 }}
+              className="text-purple-accent font-bold"
+            >
+              {texts[index].substring(0, charIndex)}
+            </motion.span>
+            <span className="text-purple-accent font-bold animate-blink">|</span>
+          </p>
+          <p className="text-sm mt-1">India, Kerala</p>
 
           {/* Social Icons */}
           <div className="h-[50px] w-[70%] flex justify-evenly items-center">

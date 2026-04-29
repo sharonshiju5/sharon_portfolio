@@ -8,9 +8,9 @@ function SkillCards() {
       transition={{ duration: 0.6, ease: "easeOut" }}
       viewport={{ once: false, amount: 0.3 }}
     >
-      <div className="w-full h-[250px] mt-[180px] flex justify-between max-[920px]:mt-[40px] max-[920px]:h-[200px] max-[426px]:hidden">
+      <div className="w-full h-[250px] flex justify-between max-[920px]:mt-0 max-[920px]:h-auto max-[920px]:flex-col max-[920px]:gap-4">
         {/* Orange Card */}
-        <div className="w-[46%] h-full bg-card-orange rounded-[15px] relative">
+        <div className="w-[46%] h-full bg-card-orange rounded-[15px] relative max-[920px]:w-full max-[920px]:h-[200px] max-[426px]:h-[160px]">
           <div className="h-[35px] w-[35px] relative">
             <img
               className="h-full w-full object-cover invert absolute left-[25px] top-[50px]"
@@ -18,7 +18,7 @@ function SkillCards() {
               alt=""
             />
           </div>
-          <p className="absolute text-[23px] font-extrabold left-[25px] top-[120px] max-[992px]:text-[1.3rem] max-[920px]:text-lg">
+          <p className="absolute text-[23px] font-extrabold left-[25px] top-[120px] max-[992px]:text-[1.3rem] max-[920px]:text-lg max-[920px]:top-[90px] max-[426px]:top-[70px] max-[426px]:text-base">
             DYNAMIC ANIMATION, MOTION DESIGN
           </p>
           <svg className="absolute bottom-0 right-0 w-full h-[60%]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 388 155" fill="transparent" stroke="rgba(202,89,46,0.4)" strokeWidth="5" strokeMiterlimit="10">
@@ -30,7 +30,7 @@ function SkillCards() {
         </div>
 
         {/* Lime Card */}
-        <div className="w-[50%] h-full bg-card-lime rounded-[15px] relative">
+        <div className="w-[50%] h-full bg-card-lime rounded-[15px] relative max-[920px]:w-full max-[920px]:h-[200px] max-[426px]:h-[160px]">
           <div className="absolute h-10 left-[7%] top-[17%]">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--token-796ee79d-fa4e-4408-bc78-57c89a70fe0d, rgb(21, 19, 18))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full">
               <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
@@ -38,7 +38,7 @@ function SkillCards() {
               <line x1="9" y1="21" x2="9" y2="9"></line>
             </svg>
           </div>
-          <p className="absolute text-[23px] font-extrabold left-[25px] top-[120px] max-[992px]:text-[1.3rem] max-[920px]:text-lg">
+          <p className="absolute text-[23px] font-extrabold left-[25px] top-[120px] max-[992px]:text-[1.3rem] max-[920px]:text-lg max-[920px]:top-[90px] max-[426px]:top-[70px] max-[426px]:text-base">
             REACTJS, FIGMA,
           </p>
           <svg className="absolute bottom-0 right-0 w-full h-[60%]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 422 284" fill="transparent" stroke="rgba(108,227,182,0.5)" strokeWidth="5" strokeMiterlimit="10">

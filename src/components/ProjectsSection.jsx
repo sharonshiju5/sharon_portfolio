@@ -41,7 +41,7 @@ function ProjectsSection() {
       >
         <div className="section-title mt-[70px] max-[920px]:mt-[40px]">
           <h1 className="title-main" id="projects">RECENT</h1>
-          <h1 className="title-overlay" style={{ left: "16%" }}>PROJECTS</h1>
+          <h1 className="title-overlay max-[920px]:!left-[4%]" style={{ left: "16%" }}>PROJECTS</h1>
         </div>
       </motion.div>
 

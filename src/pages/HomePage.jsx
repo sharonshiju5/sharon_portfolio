@@ -35,10 +35,10 @@ function HomePage() {
                 transition={{ duration: 0.6, ease: "easeOut" }}
                 viewport={{ once: false, amount: 0.3 }}
               >
-                <div className="section-title home-section">
-                  <h1 className="title-main" id="home">MERN STACK</h1>
-                  <h1 className="title-overlay developer-overlay">DEVELOPER</h1>
-                  <p className="title-description">
+                <div className="relative w-full mt-28 md:mb-[200px]  max-[1442px]:mb-[300px] max-[920px]:mb-10">
+                  <h1 className="text-[5.81rem] font-bold text-white uppercase max-[1442px]:text-[5rem] max-[1025px]:text-[4.5rem] max-[920px]:text-[3.2rem] max-[426px]:text-[2.2rem] max-[384px]:text-[1.9rem]" id="home">MERN STACK</h1>
+                  <h1 className="text-[5.81rem] font-bold uppercase text-white/20 max-[1442px]:text-[5rem] max-[1025px]:text-[4.5rem] max-[920px]:text-[3.2rem] max-[426px]:text-[2.2rem] max-[384px]:text-[1.9rem] min-[921px]:absolute min-[921px]:top-[95px] min-[921px]:left-[18.5%] min-[921px]:-translate-x-[20.5%]">DEVELOPER</h1>
+                  <p className="text-xl text-[#f4f4f485] mt-4 max-[426px]:text-sm min-[921px]:absolute min-[921px]:top-[215px] min-[921px]:left-[18%] min-[921px]:-translate-x-[20.5%] min-[921px]:mt-0">
                     Passionate about creating intuitive and engaging user experiences. Specialize in transforming ideas into beautifully crafted products.
                   </p>
                 </div>
