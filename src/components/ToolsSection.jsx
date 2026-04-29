@@ -83,7 +83,7 @@ function ToolsSection() {
         transition={{ duration: 0.6, ease: "easeOut" }}
         viewport={{ once: false, amount: 0.3 }}
       >
-        <div className="section-title mt-[420px] max-[920px]:mt-[120px] max-[426px]:mt-[80px]">
+        <div className="section-title mt-[42px] max-[920px]:mt-[120px] max-[426px]:mt-[80px]">
           <h1 className="title-main" id="footer">Top-Tier</h1>
           <h1 className="title-overlay" style={{ left: "10%" }}>Tools</h1>
         </div>
