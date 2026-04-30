@@ -31,6 +31,18 @@ export default function AdminProjects() {
     load();
   };
 
+  const swapOrder = async (i, direction) => {
+    const j = i + direction;
+    if (j < 0 || j >= projects.length) return;
+    const a = projects[i];
+    const b = projects[j];
+    await Promise.all([
+      apiFetch("project-update", { method: "PUT", body: JSON.stringify({ projectId: a.projectId, order: b.order ?? j }) }),
+      apiFetch("project-update", { method: "PUT", body: JSON.stringify({ projectId: b.projectId, order: a.order ?? i }) }),
+    ]);
+    load();
+  };
+
   if (loading) return <p className="text-white-50">Loading...</p>;
 
   return (
@@ -46,14 +58,32 @@ export default function AdminProjects() {
       </div>
 
       <div className="flex flex-col gap-3">
-        {projects.map((p) => (
+        {projects.map((p, i) => (
           <div key={p.projectId} className="bg-card-bg rounded-xl border border-white-8 p-5 flex items-center gap-4 max-[768px]:flex-col max-[768px]:items-start">
+            {/* Order controls */}
+            <div className="flex flex-col gap-1 shrink-0">
+              <button
+                onClick={() => swapOrder(i, -1)}
+                disabled={i === 0}
+                className="px-2 py-0.5 bg-white-5 rounded text-xs cursor-pointer hover:bg-white-10 disabled:opacity-30 disabled:cursor-not-allowed"
+              >▲</button>
+              <span className="text-[10px] text-white-40 text-center">{i + 1}</span>
+              <button
+                onClick={() => swapOrder(i, 1)}
+                disabled={i === projects.length - 1}
+                className="px-2 py-0.5 bg-white-5 rounded text-xs cursor-pointer hover:bg-white-10 disabled:opacity-30 disabled:cursor-not-allowed"
+              >▼</button>
+            </div>
+
             {p.coverImg && (
               <img src={p.coverImg} alt="" className="w-20 h-14 object-cover rounded-lg shrink-0" />
             )}
             <div className="flex-1 min-w-0">
               <p className="font-semibold truncate">{p.name}</p>
-              <p className="text-sm text-white-40">{p.category} · {p.year}</p>
+              <p className="text-sm text-white-40">
+                {p.category} · {p.year}
+                {p.role && <span className="ml-2 text-purple-accent">· {p.role}</span>}
+              </p>
             </div>
             <div className="flex items-center gap-2 text-xs text-white-40">
               <span>{p.views || 0} views</span>

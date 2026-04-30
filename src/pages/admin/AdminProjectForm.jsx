@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { apiFetch } from "../../hooks/api";
-import ImageUpload, { GalleryUpload } from "../../components/admin/ImageUpload";
+import ImageUpload, { GalleryUpload, imgUrl } from "../../components/admin/ImageUpload";
 
 const empty = {
   projectId: "", name: "", shortDesc: "", category: "", year: "",
   coverImg: "", gallery: [], techStack: [], description: "",
   features: [], challenges: "", githubLink: "", liveLink: "", status: "draft",
+  role: "Full Stack",
 };
 
 export default function AdminProjectForm() {
@@ -70,7 +71,7 @@ export default function AdminProjectForm() {
             className="h-10 rounded-lg bg-input-bg border border-gray-500 px-4 text-white" />
         </label>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-3 gap-4">
           <label className="flex flex-col gap-1.5 text-sm text-white-60">
             Category
             <input value={form.category} onChange={(e) => set("category", e.target.value)}
@@ -80,6 +81,15 @@ export default function AdminProjectForm() {
             Year
             <input value={form.year} onChange={(e) => set("year", e.target.value)}
               className="h-10 rounded-lg bg-input-bg border border-gray-500 px-4 text-white" />
+          </label>
+          <label className="flex flex-col gap-1.5 text-sm text-white-60">
+            My Role
+            <select value={form.role || "Full Stack"} onChange={(e) => set("role", e.target.value)}
+              className="h-10 rounded-lg bg-input-bg border border-gray-500 px-4 text-white">
+              <option value="Frontend">Frontend</option>
+              <option value="Backend">Backend</option>
+              <option value="Full Stack">Full Stack</option>
+            </select>
           </label>
         </div>
 
@@ -111,8 +121,37 @@ export default function AdminProjectForm() {
         {/* Cover Image Upload */}
         <ImageUpload label="Cover Image" value={form.coverImg} onChange={(id) => set("coverImg", id)} />
 
-        {/* Gallery Upload */}
+        {/* Gallery Upload with reorder */}
         <GalleryUpload value={form.gallery} onChange={(ids) => set("gallery", ids)} />
+        {form.gallery.length > 1 && (
+          <div className="flex flex-col gap-1.5 text-sm text-white-60">
+            Reorder Gallery (drag or use arrows)
+            <div className="flex flex-wrap gap-2">
+              {form.gallery.map((img, i) => (
+                <div key={i} className="relative flex flex-col items-center gap-1">
+                  <img src={imgUrl(img)} alt="" className="h-16 w-24 object-cover rounded-lg border border-white-8" />
+                  <div className="flex gap-1">
+                    <button type="button" disabled={i === 0}
+                      onClick={() => {
+                        const g = [...form.gallery];
+                        [g[i - 1], g[i]] = [g[i], g[i - 1]];
+                        set("gallery", g);
+                      }}
+                      className="px-1.5 py-0.5 bg-white-5 rounded text-[10px] cursor-pointer hover:bg-white-10 disabled:opacity-30 disabled:cursor-not-allowed">←</button>
+                    <span className="text-[10px] text-white-40 py-0.5">{i + 1}</span>
+                    <button type="button" disabled={i === form.gallery.length - 1}
+                      onClick={() => {
+                        const g = [...form.gallery];
+                        [g[i], g[i + 1]] = [g[i + 1], g[i]];
+                        set("gallery", g);
+                      }}
+                      className="px-1.5 py-0.5 bg-white-5 rounded text-[10px] cursor-pointer hover:bg-white-10 disabled:opacity-30 disabled:cursor-not-allowed">→</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Tech Stack */}
         <div className="flex flex-col gap-1.5 text-sm text-white-60">

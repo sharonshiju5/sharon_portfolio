@@ -140,6 +140,11 @@ function ProjectDetail() {
               <span className="rounded-md border border-purple-20 bg-purple-12 px-4 py-1.5 text-xs font-bold uppercase tracking-[2px] text-purple-accent">
                 {project.category}
               </span>
+              {project.role && (
+                <span className="rounded-md border border-white-12 bg-white-5 px-3.5 py-1.5 text-xs font-semibold text-white-60">
+                  {project.role}
+                </span>
+              )}
               <span className="rounded-md bg-white-5 px-3.5 py-1.5 text-xs font-medium text-white-40">
                 {project.year}
               </span>

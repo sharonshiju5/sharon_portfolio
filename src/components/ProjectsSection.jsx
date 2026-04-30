@@ -137,6 +137,11 @@ function ProjectsSection() {
                   <span className="rounded bg-purple-10 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-[1.2px] text-purple-accent">
                     {proj.category}
                   </span>
+                  {proj.role && (
+                    <span className="rounded bg-white-5 px-2 py-0.5 text-[10px] font-medium text-white-50">
+                      {proj.role}
+                    </span>
+                  )}
                   <span className="text-[11px] font-medium text-white-35">
                     {proj.year}
                   </span>

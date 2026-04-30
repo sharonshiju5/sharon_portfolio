@@ -27,6 +27,7 @@ export default async (request) => {
     githubLink: body.githubLink || "",
     liveLink: body.liveLink || "",
     status: body.status || "draft",
+    role: body.role || "Full Stack",
     views: 0,
     clicks: 0,
     order: count + 1,
