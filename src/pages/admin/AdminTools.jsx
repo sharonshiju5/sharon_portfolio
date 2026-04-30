@@ -68,11 +68,37 @@ export default function AdminTools() {
     });
   };
 
+  const [filter, setFilter] = useState("all"); // "all" | "enabled" | "disabled"
+
+  const filtered = tools.filter((t) => {
+    if (filter === "enabled") return t.enabled !== false;
+    if (filter === "disabled") return t.enabled === false;
+    return true;
+  });
+
+  const disabledCount = tools.filter((t) => t.enabled === false).length;
+
   if (loading) return <p className="text-white-50">Loading...</p>;
 
   return (
     <div>
-      <h1 className="text-2xl font-bold font-outfit mb-6">Tools</h1>
+      <div className="flex items-center justify-between mb-6 max-[768px]:flex-col max-[768px]:items-start max-[768px]:gap-3">
+        <h1 className="text-2xl font-bold font-outfit">Tools</h1>
+        <div className="flex gap-2">
+          <button onClick={() => setFilter("all")}
+            className={`px-3 py-1.5 rounded-lg text-xs cursor-pointer transition-colors ${filter === "all" ? "bg-purple-accent text-white" : "bg-white-5 text-white-60"}`}>
+            All ({tools.length})
+          </button>
+          <button onClick={() => setFilter("enabled")}
+            className={`px-3 py-1.5 rounded-lg text-xs cursor-pointer transition-colors ${filter === "enabled" ? "bg-green-900/60 text-green-400" : "bg-white-5 text-white-60"}`}>
+            Enabled ({tools.length - disabledCount})
+          </button>
+          <button onClick={() => setFilter("disabled")}
+            className={`px-3 py-1.5 rounded-lg text-xs cursor-pointer transition-colors ${filter === "disabled" ? "bg-red-900/60 text-red-400" : "bg-white-5 text-white-60"}`}>
+            Disabled ({disabledCount})
+          </button>
+        </div>
+      </div>
 
       <div className="bg-card-bg rounded-xl border border-white-8 p-5 mb-6 flex flex-col gap-3">
         <input value={name} onChange={(e) => setName(e.target.value)}
@@ -117,7 +143,8 @@ export default function AdminTools() {
       </div>
 
       <div className="flex flex-col gap-2">
-        {tools.map((tool, i) => {
+        {filtered.map((tool) => {
+          const i = tools.indexOf(tool);
           const src = tool.icon?.startsWith("http") ? tool.icon : imgUrl(tool.icon);
           const disabled = tool.enabled === false;
           return (
@@ -146,7 +173,7 @@ export default function AdminTools() {
             </div>
           );
         })}
-        {tools.length === 0 && <p className="text-white-40 text-center py-10">No tools yet</p>}
+        {filtered.length === 0 && <p className="text-white-40 text-center py-10">{filter === "all" ? "No tools yet" : `No ${filter} tools`}</p>}
       </div>
     </div>
   );
