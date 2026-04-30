@@ -15,6 +15,7 @@ export default async (request) => {
   const tool = {
     name: body.name || "",
     icon: body.icon || "",
+    enabled: true,
     order: count + 1,
   };
 

@@ -216,6 +216,7 @@ body::before {
    ================================================ */
 .tool-icon-box {
   width: 36px;
+  height: 36px;
   padding: 7px;
   border-radius: 12px;
   margin-right: 15px;
