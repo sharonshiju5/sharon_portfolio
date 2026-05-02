@@ -1,20 +1,23 @@
-import { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { lazy, Suspense, useState, useEffect } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
+import { LoadingProvider, useLoading } from "./hooks/useLoading";
 import LoadingScreen from "./components/LoadingScreen";
-import HomePage from "./pages/HomePage";
-import ProjectDetail from "./pages/ProjectDetail";
-
-// Admin
 import { useAuth } from "./hooks/useAuth";
-import AdminLogin from "./pages/admin/AdminLogin";
-import AdminLayout from "./pages/admin/AdminLayout";
-import AdminDashboard from "./pages/admin/AdminDashboard";
-import AdminProjects from "./pages/admin/AdminProjects";
-import AdminProjectForm from "./pages/admin/AdminProjectForm";
-import AdminProfile from "./pages/admin/AdminProfile";
-import AdminTools from "./pages/admin/AdminTools";
+
+// Lazy load pages
+const HomePage = lazy(() => import("./pages/HomePage"));
+const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
+
+// Lazy load admin pages
+const AdminLogin = lazy(() => import("./pages/admin/AdminLogin"));
+const AdminLayout = lazy(() => import("./pages/admin/AdminLayout"));
+const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
+const AdminProjects = lazy(() => import("./pages/admin/AdminProjects"));
+const AdminProjectForm = lazy(() => import("./pages/admin/AdminProjectForm"));
+const AdminProfile = lazy(() => import("./pages/admin/AdminProfile"));
+const AdminTools = lazy(() => import("./pages/admin/AdminTools"));
 
 function AdminRoutes() {
   const { isLoggedIn, login, logout } = useAuth();
@@ -34,33 +37,49 @@ function AdminRoutes() {
   );
 }
 
-function App() {
-  const [isLoading, setIsLoading] = useState(true);
+function AppContent() {
+  const location = useLocation();
+  const isHome = location.pathname === "/";
+  const { allReady } = useLoading();
+  const [minTimePassed, setMinTimePassed] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => setIsLoading(false), 1500);
+    const t = setTimeout(() => setMinTimePassed(true), 800);
+    return () => clearTimeout(t);
   }, []);
+
+  const showLoading = isHome && (!allReady || !minTimePassed);
 
   return (
     <div>
       <AnimatePresence mode="wait">
-        {isLoading && <LoadingScreen />}
+        {showLoading && <LoadingScreen key="loader" />}
       </AnimatePresence>
 
-      {!isLoading && (
+      {!showLoading && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/project/:id" element={<ProjectDetail />} />
-            <Route path="/admin/*" element={<AdminRoutes />} />
-          </Routes>
+          <Suspense fallback={<LoadingScreen />}>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/project/:id" element={<ProjectDetail />} />
+              <Route path="/admin/*" element={<AdminRoutes />} />
+            </Routes>
+          </Suspense>
         </motion.div>
       )}
     </div>
+  );
+}
+
+function App() {
+  return (
+    <LoadingProvider>
+      <AppContent />
+    </LoadingProvider>
   );
 }
 

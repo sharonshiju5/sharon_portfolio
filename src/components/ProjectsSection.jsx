@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { apiFetch } from "../hooks/api";
 import { imgUrl } from "../components/admin/ImageUpload";
+import { useLoading } from "../hooks/useLoading";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -27,8 +28,13 @@ function ProjectsSection() {
   const [projects, setProjects] = useState([]);
   const navigate = useNavigate();
 
+  const { markReady } = useLoading();
+
   useEffect(() => {
-    apiFetch("projects-get").then(setProjects).catch(console.error);
+    apiFetch("projects-get")
+      .then(setProjects)
+      .catch(console.error)
+      .finally(() => markReady("projects"));
   }, []);
 
   const handleProjectClick = (e, projectId) => {

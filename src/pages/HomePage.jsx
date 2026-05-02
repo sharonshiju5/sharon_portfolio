@@ -1,14 +1,15 @@
-import { useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ToastContainer } from "react-toastify";
 
 import Navbar from "../components/Navbar";
 import ProfileCard from "../components/ProfileCard";
-import SkillCards from "../components/SkillCards";
-import ProjectsSection from "../components/ProjectsSection";
-import ThoughtsSection from "../components/ThoughtsSection";
-import ToolsSection from "../components/ToolsSection";
-import ContactForm from "../components/ContactForm";
+
+const SkillCards = lazy(() => import("../components/SkillCards"));
+const ProjectsSection = lazy(() => import("../components/ProjectsSection"));
+const ThoughtsSection = lazy(() => import("../components/ThoughtsSection"));
+const ToolsSection = lazy(() => import("../components/ToolsSection"));
+const ContactForm = lazy(() => import("../components/ContactForm"));
 
 function HomePage() {
   useEffect(() => {
@@ -63,20 +64,13 @@ function HomePage() {
                 </div>
               </motion.div>
 
-              {/* Skill Cards */}
-              <SkillCards />
-
-              {/* Projects */}
-              <ProjectsSection />
-
-              {/* Design Thoughts */}
-              <ThoughtsSection />
-
-              {/* Tools */}
-              <ToolsSection />
-
-              {/* Contact Form */}
-              <ContactForm />
+              <Suspense fallback={null}>
+                <SkillCards />
+                <ProjectsSection />
+                <ThoughtsSection />
+                <ToolsSection />
+                <ContactForm />
+              </Suspense>
 
               <ToastContainer />
             </div>

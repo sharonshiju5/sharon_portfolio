@@ -2,12 +2,18 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { apiFetch } from "../hooks/api";
 import { imgUrl } from "../components/admin/ImageUpload";
+import { useLoading } from "../hooks/useLoading";
 
 function ToolsSection() {
   const [tools, setTools] = useState([]);
 
+  const { markReady } = useLoading();
+
   useEffect(() => {
-    apiFetch("tools-get").then(setTools).catch(console.error);
+    apiFetch("tools-get")
+      .then(setTools)
+      .catch(console.error)
+      .finally(() => markReady("tools"));
   }, []);
 
   if (!tools.length) return null;
