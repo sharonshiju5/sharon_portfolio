@@ -24,10 +24,19 @@ export default async (request) => {
   const base64 = image.data.replace(/^data:[^;]+;base64,/, "");
   const binary = Uint8Array.from(atob(base64), (c) => c.charCodeAt(0));
 
+  const ext = (image.type || "image/png").split("/")[1] || "png";
+  const filename = image.name || `sharon_shiju_resume.${ext}`;
+
+  const isDownload = url.searchParams.get("download") === "true";
+  const disposition = isDownload
+    ? `attachment; filename="${filename}"`
+    : `inline; filename="${filename}"`;
+
   return new Response(binary, {
     status: 200,
     headers: {
       "Content-Type": image.type || "image/png",
+      "Content-Disposition": disposition,
       "Cache-Control": "public, max-age=31536000, immutable",
       "Access-Control-Allow-Origin": "*",
     },
