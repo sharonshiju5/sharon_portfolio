@@ -4,11 +4,11 @@ import { ToastContainer } from "react-toastify";
 
 import Navbar from "../components/Navbar";
 import ProfileCard from "../components/ProfileCard";
+import ProjectsSection from "../components/ProjectsSection";
+import ToolsSection from "../components/ToolsSection";
 
 const SkillCards = lazy(() => import("../components/SkillCards"));
-const ProjectsSection = lazy(() => import("../components/ProjectsSection"));
 const ThoughtsSection = lazy(() => import("../components/ThoughtsSection"));
-const ToolsSection = lazy(() => import("../components/ToolsSection"));
 const ContactForm = lazy(() => import("../components/ContactForm"));
 
 function HomePage() {
@@ -66,9 +66,17 @@ function HomePage() {
 
               <Suspense fallback={null}>
                 <SkillCards />
-                <ProjectsSection />
+              </Suspense>
+
+              <ProjectsSection />
+
+              <Suspense fallback={null}>
                 <ThoughtsSection />
-                <ToolsSection />
+              </Suspense>
+
+              <ToolsSection />
+
+              <Suspense fallback={null}>
                 <ContactForm />
               </Suspense>
 

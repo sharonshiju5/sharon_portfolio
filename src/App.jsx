@@ -4,13 +4,11 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import { LoadingProvider, useLoading } from "./hooks/useLoading";
 import LoadingScreen from "./components/LoadingScreen";
+import HomePage from "./pages/HomePage";
 import { useAuth } from "./hooks/useAuth";
 
-// Lazy load pages
-const HomePage = lazy(() => import("./pages/HomePage"));
+// Lazy load non-critical pages
 const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
-
-// Lazy load admin pages
 const AdminLogin = lazy(() => import("./pages/admin/AdminLogin"));
 const AdminLayout = lazy(() => import("./pages/admin/AdminLayout"));
 const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
@@ -56,21 +54,21 @@ function AppContent() {
         {showLoading && <LoadingScreen key="loader" />}
       </AnimatePresence>
 
-      {!showLoading && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          <Suspense fallback={<LoadingScreen />}>
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/project/:id" element={<ProjectDetail />} />
-              <Route path="/admin/*" element={<AdminRoutes />} />
-            </Routes>
-          </Suspense>
-        </motion.div>
-      )}
+      {/* Always render HomePage so API calls fire during loading screen */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: showLoading ? 0 : 1, y: showLoading ? 20 : 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        style={{ pointerEvents: showLoading ? "none" : "auto" }}
+      >
+        <Suspense fallback={<LoadingScreen />}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/project/:id" element={<ProjectDetail />} />
+            <Route path="/admin/*" element={<AdminRoutes />} />
+          </Routes>
+        </Suspense>
+      </motion.div>
     </div>
   );
 }
