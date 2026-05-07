@@ -1,44 +1,47 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { MdPhone } from "react-icons/md";
-import pro from "../assets/profil.jpg";
+import { imgUrl } from "../utils/imgUrl";
+import fallbackImg from "../assets/profil.jpg";
 
 function ProfileCard() {
-  const email = "sharonshiju261@gmail.com";
-  const subject = "Inquiry about your portfolio";
-  const body = "Hi Sharon, I saw your portfolio and wanted to reach out.";
-
+  const [profile, setProfile] = useState(null);
   const [isClicked, setIsClicked] = useState(false);
   const cardRef = useRef(null);
 
+  // Fetch profile from API
+  useEffect(() => {
+    fetch("/.netlify/functions/profile-get")
+      .then((r) => r.json())
+      .then(setProfile)
+      .catch(() => {});
+  }, []);
+
   // Typing effect
-  const texts = [" Web Developer", " React Expert", " BACKEND Developer"];
+  const texts = profile?.typingTexts?.length ? profile.typingTexts : ["Web Developer", "React Expert", "BACKEND Developer"];
   const [index, setIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  const typingSpeed = 150;
-  const deletingSpeed = 80;
-  const pauseTime = 2000;
 
   useEffect(() => {
     const currentText = texts[index];
     let timeout;
     if (isDeleting) {
       if (charIndex > 0) {
-        timeout = setTimeout(() => setCharIndex((prev) => prev - 1), deletingSpeed);
+        timeout = setTimeout(() => setCharIndex((prev) => prev - 1), 80);
       } else {
         setIsDeleting(false);
         setIndex((prev) => (prev + 1) % texts.length);
       }
     } else {
       if (charIndex < currentText.length) {
-        timeout = setTimeout(() => setCharIndex((prev) => prev + 1), typingSpeed);
+        timeout = setTimeout(() => setCharIndex((prev) => prev + 1), 150);
       } else {
-        timeout = setTimeout(() => setIsDeleting(true), pauseTime);
+        timeout = setTimeout(() => setIsDeleting(true), 2000);
       }
     }
     return () => clearTimeout(timeout);
-  }, [charIndex, isDeleting, index]);
+  }, [charIndex, isDeleting, index, texts]);
 
   const handleMouseMove = (e) => {
     if (!cardRef.current) return;
@@ -49,12 +52,21 @@ function ProfileCard() {
   };
 
   const handleMouseLeave = () => {
-    if (cardRef.current) {
-      cardRef.current.style.transform = `translate(0px, 0px)`;
-    }
+    if (cardRef.current) cardRef.current.style.transform = `translate(0px, 0px)`;
   };
 
+  const email = profile?.email || "sharonshiju261@gmail.com";
+  const phone = profile?.phone || "+919895438132";
+  const github = profile?.github || "https://github.com/sharonshiju5";
+  const linkedin = profile?.linkedin || "https://www.linkedin.com/in/sharon-shiju-pk/";
+  const name = profile?.name || "Sharon Shiju";
+  const location = profile?.location || "India, Kerala";
+  const profileImage = profile?.profileImage ? imgUrl(profile.profileImage) : fallbackImg;
+  const cvFile = profile?.cvFile ? imgUrl(profile.cvFile) : "/sharon_mernstack_developer.pdf";
+
   const handleEmailClick = () => {
+    const subject = "Inquiry about your portfolio";
+    const body = `Hi ${name}, I saw your portfolio and wanted to reach out.`;
     if (/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
       window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     } else {
@@ -66,7 +78,7 @@ function ProfileCard() {
   };
 
   const handlePhoneClick = () => {
-    window.location.href = "tel:+919895438132";
+    window.location.href = `tel:${phone}`;
   };
 
   const handleBtnClick = () => {
@@ -90,13 +102,13 @@ function ProfileCard() {
       >
         {/* Profile Image */}
         <div className="w-[85%] h-[220px] flex justify-center max-[920px]:h-[200px]">
-          <img src={pro} alt="" className="w-full h-full object-cover rounded-[20px]" />
+          <img src={profileImage} alt="" className="w-full h-full object-cover rounded-[20px]" />
         </div>
 
         {/* Profile Info */}
         <div className="w-[85%] flex flex-col items-center">
           <p className="text-[37px] font-black font-outfit text-white whitespace-nowrap max-1025:text-[2rem] max-992:text-[1.5rem] max-[426px]:text-[1.6rem]">
-            Sharon Shiju
+            {name}
           </p>
           <p className="text-sm mt-1">
             I&apos;m a
@@ -108,21 +120,21 @@ function ProfileCard() {
               transition={{ duration: 0.5 }}
               className="text-purple-accent font-bold"
             >
-              {texts[index].substring(0, charIndex)}
+              {" " + texts[index].substring(0, charIndex)}
             </motion.span>
             <span className="text-purple-accent font-bold animate-blink">|</span>
           </p>
-          <p className="text-sm mt-1">India, Kerala</p>
+          <p className="text-sm mt-1">{location}</p>
 
           {/* Social Icons */}
           <div className="h-[50px] w-[70%] flex justify-evenly items-center">
             <div className="w-[30px] h-[30px] flex items-center justify-center hover:bg-purple-accent hover:scale-[1.3] hover:rounded-[7px] transition-all duration-200">
-              <a href="https://github.com/sharonshiju5">
+              <a href={github} target="_blank" rel="noopener noreferrer">
                 <img src="https://cdn-icons-png.flaticon.com/128/733/733609.png" alt="" className="invert h-5 w-5 object-cover !rounded-none" />
               </a>
             </div>
             <div className="w-[30px] h-[30px] flex items-center justify-center hover:bg-purple-accent hover:scale-[1.3] hover:rounded-[7px] transition-all duration-200">
-              <a href="https://www.linkedin.com/in/sharon-shiju-pk/">
+              <a href={linkedin} target="_blank" rel="noopener noreferrer">
                 <img src="https://cdn-icons-png.flaticon.com/128/2111/2111532.png" alt="" className="invert h-5 w-5 object-cover !rounded-none" />
               </a>
             </div>
@@ -159,8 +171,8 @@ function ProfileCard() {
             </motion.button>
           </a>
           <a
-            href="/sharon_mernstack_developer.pdf"
-            download="sharon_mernstack_developer.pdf"
+            href={cvFile}
+            download
             target="_blank"
             rel="noopener noreferrer"
             className="w-full"

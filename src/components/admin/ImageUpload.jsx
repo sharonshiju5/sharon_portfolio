@@ -1,14 +1,8 @@
 import { useState } from "react";
 import { apiFetch } from "../../hooks/api";
+import { imgUrl } from "../../utils/imgUrl";
 
-const API_IMG = "/.netlify/functions/get-image?id=";
-
-// Converts image ID to displayable URL
-export function imgUrl(id) {
-  if (!id) return "";
-  if (id.startsWith("http") || id.startsWith("data:")) return id;
-  return `${API_IMG}${id}`;
-}
+export { imgUrl };
 
 export default function ImageUpload({ value, onChange, label = "Image", className = "" }) {
   const [uploading, setUploading] = useState(false);
